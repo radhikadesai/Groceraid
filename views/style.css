@@ -1,0 +1,66 @@
+head img {
+	padding: 75px;
+	width: 50px;
+	text-align: left;
+}
+
+head ul {
+	display: inline-block;
+}
+
+head ul li {
+	width: 50px;
+}
+
+.Menu {
+	text-align: center;
+}
+
+.Menu .MenuList {
+	text-align: center;
+	position: absolute;
+	left: 40%;
+}
+
+.Menu .MenuList li {
+  padding: 40px;
+  width: 400px;
+  text-align: center;
+  border-style: solid;
+  border-width: 5px;
+  border-color: black;
+  font: 40px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+footer {
+	padding: 50px;
+	position: absolute;
+	top: 95%;
+	left: 42%;
+	text-align: center;
+	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #000000;
+}
+
+#hidden-txt {
+	display: none;
+	font-size: 10px;
+	padding: 0px;
+	width: 50px;
+	text-transform: uppercase;
+}
+
+#options:hover #hidden-txt {
+	display: block;
+}
+
+a:hover {
+	color: #000077;
+}
+
+#home:hover #hidden-txt {
+	display: block;
+}
