@@ -45,7 +45,7 @@ a {
   color: #000000;
 }
 
-#hidden-txt{
+#hidden-txt {
 	display: none;
 	font-size: 10px;
 	padding: 0px;
@@ -53,7 +53,7 @@ a {
 	text-transform: uppercase;
 }
 
-#options:hover #hidden-txt{
+#options:hover #hidden-txt {
 	display: block;
 }
 
@@ -61,6 +61,6 @@ a:hover {
 	color: #000077;
 }
 
-#options a .gear:hover{
-
+#home:hover #hidden-txt {
+	display: block;
 }
