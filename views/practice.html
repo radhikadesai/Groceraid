@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<body>
+
+    <div ng-app="myApp" ng-controller="myCtrl">
+	{{ firstName + " " + lastName }}
+	 <section id="health">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Health</h2>
+                    <hr class="star-primary">
+                </div>
+            </div>
+            <div class="row">
+                <div class="healthMain">
+                    <div class="foodItems" ng-repeat="food in foods">
+                        <div> {{ food.quantity }} </div>
+                        <p> TEST </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+	</div>
+
+<script src="stylesheets/js/Controllers/myApp.js"></script>
+<script src="stylesheets/js/Controllers/myCtrl.js"></script>
+
+</body>
+</html>
