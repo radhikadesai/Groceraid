@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<title>Groceraid</title>
+	</head>
+
+	<body>
+
+	<div class="container">
+		<h2>Groceraid</h2>
+		<ul class="nav nav-tabs">
+		  <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+		  <li><a data-toggle="tab" href="#health">Health</a></li>
+		  <li><a data-toggle="tab" href="#stores">Stores</a></li>
+		  <li><a data-toggle="tab" href="#food">Food</a></li>
+		  <li><a data-toggle="tab" href="#recipes">Recipes</a></li>
+		</ul>
+
+		<div class="tab-content" ng-app="myApp" ng-controller="myCtrl">
+
+		  <div id="home" class="tab-pane fade in active">
+		    <h3>HOME</h3>
+		    <p>Will display logo and slogan along with possible other content</p>
+		    <img class="img-responsive" src="Images/Icon.png" alt="Icon" width="400" height="300">
+		  </div>
+
+		  <div id="health" class="tab-pane fade">
+		    <h3>HEALTH</h3>
+		    <div class="foodItems">
+		    	<div ng-repeat="food in foods">
+		    		<p class="quantity">{{ food.quantity }}</p>
+		    		<p> TEST </p>
+		    	</div>
+		    	<!--
+		    	<div ng-if="myWelcome.Response!='True'">
+  					{{ myWelcome.user_input }}
+  					{{ myWelcome.list_of_foods }}
+				</div>
+		    	<div ng-if="myWelcome.Response!='False'">
+  					No results found.
+				</div>
+			-->
+				<div ng-repeat="food in myWelcome.list_of_foods">
+					<p>{{ food }}</p>
+				</div>
+		    </div>
+		  </div>
+
+		  <div id="stores" class="tab-pane fade">
+		    <h3>Stores</h3>
+		    <p>Page containing the tables of stores nearby</p>
+
+		  </div>
+
+		  <div id="food" class="tab-pane fade">
+		    <h3>FOOD</h3>
+		    <p>Page containing the food that needs to be bought</p>
+		    <table class="table table-hover">
+			    <thead>
+			      <tr>
+			        <th>Food Name</th>
+			        <th>Food Type</th>
+			        <th>Abundance</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      <tr>
+			        <td>John</td>
+			        <td>Doe</td>
+			        <td>john@example.com</td>
+			      </tr>
+			    </tbody>
+			  </table>
+		  </div>
+
+		  <div id="recipes" class="tab-pane fade">
+		    <h3>RECIPES</h3>
+		    <p>Page containing the tables of recipes based on food in the fridge.</p>
+		   		    <table class="table table-hover">
+			    <thead>
+			      <tr>
+			        <th>Recipe Name</th>
+			        <th>Food Type</th>
+			        <th>Abundance</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      <tr>
+			        <td>John</td>
+			        <td>Doe</td>
+			        <td>john@example.com</td>
+			      </tr>
+			    </tbody>
+			  </table>
+		  </div>
+
+		</div>
+	</div>
+
+	</body>
+
+<script src="stylesheets/js/Controllers/myApp.js"></script>
+<script src="stylesheets/js/Controllers/myCtrl.js"></script>
+
+</html>
