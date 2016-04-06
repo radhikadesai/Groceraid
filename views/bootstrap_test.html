@@ -38,18 +38,11 @@
 		    		<p class="quantity">{{ food.quantity }}</p>
 		    		<p> TEST </p>
 		    	</div>
-		    	<!--
-		    	<div ng-if="myWelcome.Response!='True'">
-  					{{ myWelcome.user_input }}
-  					{{ myWelcome.list_of_foods }}
-				</div>
-		    	<div ng-if="myWelcome.Response!='False'">
-  					No results found.
-				</div>
-			-->
-				<div ng-repeat="food in myWelcome.list_of_foods">
+
+		    	<div ng-repeat="food in myWelcome.list_of_foods">
 					<p>{{ food }}</p>
 				</div>
+
 		    </div>
 		  </div>
 
