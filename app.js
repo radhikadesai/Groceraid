@@ -4,10 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var mysql = require('mysql');
+// var mysql = require('mysql');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var users = require('./routes/sandbox');
+var food = require('./routes/food');
+
 
 var app = express();
  
@@ -29,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/sandbox', users);
+app.use('/food', food);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -39,21 +42,23 @@ app.use(function(req, res, next) {
 
 var http = require('http');
 var server = http.createServer(app);
+
 //mysql connection
 
-var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database : "groceraid"
-});
-con.connect(function(err){
-    if(err){
-      console.log('Error connecting to Db', err);
-      return;
-    }
-  console.log('Connection established');
-});
+// var con = mysql.createConnection({
+//   host: "localhost",
+//   user: "root",
+//   password: "",
+//   database : "groceraid"
+// });
+// con.connect(function(err){
+//     if(err){
+//       console.log('Error connecting to Db', err);
+//       return;
+//     }
+//   console.log('Connection established');
+// });
+
 
 // error handlers
 
