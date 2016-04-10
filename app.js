@@ -4,11 +4,14 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+
 // var mysql = require('mysql');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var users = require('./routes/sandbox');
 var food = require('./routes/food');
+var testData = require('./routes/testdata');
+var testStoresData = require('./routes/testStoresData')
 
 
 var app = express();
@@ -30,8 +33,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/sandbox', users);
 app.use('/food', food);
+app.use('/sandbox', sandbox);
+app.use('/testData', testData);
+app.use('/testStoresData', testStoresData);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -60,6 +66,7 @@ var server = http.createServer(app);
 // });
 
 
+
 // error handlers
 
 // development error handler
@@ -84,8 +91,8 @@ app.use(function(err, req, res, next) {
   });
 });
 
-server.listen(3000);
-console.log('Express server started on port %s', server.address().port);
+server.listen(3000); //, '10.136.103.170');
+console.log('Express server started on port %d', server.address().port);
 
 
 module.exports = app;
