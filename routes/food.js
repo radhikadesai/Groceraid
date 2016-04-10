@@ -27,11 +27,27 @@ createFoods = function(user_input,list_of_foods){
 		});
 	}
 }
-
 router.post('/', function(req, res, next) {
+<<<<<<< HEAD
 	console.log(req.body);
 	createFoods(req.body.user_input,req.body.list_of_foods);	
+=======
+	var spawn = require("child_process").spawn;
+	var test=req.body;
+	console.log(test);
+	var jsonObj =  {'user_input':'Hello Mr. Fridge today you have milk 2 eggs and cheese'}; 
+	var process = spawn('python',["python/process_speech.py", JSON.stringify(jsonObj)]);
+	process.stdout.on('data', function (data){
+		var x = JSON.parse(data);
+		createFoods(x.user_input, x.list_of_foods);
+		res.send(foods);
+	});
+>>>>>>> a1ddf02f97d7e6e0058846168b88461481e8f8bc
 });
+
+//router.post('/', function(req, res, next) {
+	//createFoods(req.body.user_input,req.body.list_of_foods);	
+//});
 
 // Gets all the foods in the fridge whose abundance is > 0
 router.get('/', function(req, res, next) {
