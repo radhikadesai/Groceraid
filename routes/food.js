@@ -7,28 +7,29 @@ GLOBAL.foods={}
 
 // {"user_input":"Hello Mr. Fridge today you have milk eggs and cheese","list_of_foods":["milk","eggs","cheese"]}
 // TODO : Add a number to the food type, eg. 4 eggs, 2 milk
-
-router.post('/', function(req, res, next) {
-	console.log("REQ BODY : ", req.body.list_of_foods);
-	if(req.body.user_input.includes("low on")){
-		req.body.list_of_foods.forEach(function(food){
-			foods[food].abundance = 0;
-			console.log("Low on foods",foods);
-		});
-		
+createFoods = function(user_input,list_of_foods){
+	console.log("List of foods : ", list_of_foods);
+	if(user_input.includes("low on")){
+		if(foods!=undefined){
+			req.body.list_of_foods.forEach(function(food){
+				foods[food].abundance = 0;
+			});	
+		}
 	}
 	else{
-		req.body.list_of_foods.forEach(function(food){
+		list_of_foods.forEach(function(food){
 		if(foods[food]){
 			foods[food].abundance = foods[food].abundance + 1;
 		}
 		else{
 			foods[food] = {abundance : 1}
 		}
-		console.log("Abundance",foods);
-
 		});
 	}
+}
+
+router.post('/', function(req, res, next) {
+	createFoods(req.body.user_input,req.body.list_of_foods);	
 });
 
 // Gets all the foods in the fridge whose abundance is > 0

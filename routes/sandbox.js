@@ -1,4 +1,5 @@
 var express = require('express');
+var food = require('./food.js');
 var router = express.Router();
 
 /* You are entering my sandbox. Proceed with caution. */
@@ -8,7 +9,8 @@ router.get('/test', function(req, res, next) {
 	var process = spawn('python',["python/process_speech.py", JSON.stringify(jsonObj)]);
 	process.stdout.on('data', function (data){
 		var x = JSON.parse(data);
-		res.send(JSON.stringify(x));
+		createFoods(x.user_input, x.list_of_foods);
+		res.send(foods);
 	});
 });
 
