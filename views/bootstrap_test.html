@@ -17,7 +17,7 @@
 		<h2>Groceraid</h2>
 		<ul class="nav nav-tabs">
 		  <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-		  <li><a data-toggle="tab" href="#health">Health</a></li>
+		  <li><a data-toggle="tab" href="#suggest">Suggestions</a></li>
 		  <li><a data-toggle="tab" href="#stores">Stores</a></li>
 		  <li><a data-toggle="tab" href="#food">Food</a></li>
 		  <li><a data-toggle="tab" href="#recipes">Recipes</a></li>
@@ -28,22 +28,16 @@
 		  <div id="home" class="tab-pane fade in active">
 		    <h3>HOME</h3>
 		    <p>Will display logo and slogan along with possible other content</p>
-		    <img class="img-responsive" src="Images/Icon.png" alt="Icon" width="400" height="300">
+		    <img class="img-responsive" src="stylesheets/Images/Icon.png" alt="Icon" width="400" height="300">
 		  </div>
 
-		  <div id="health" class="tab-pane fade">
-		    <h3>HEALTH</h3>
-		    <div class="foodItems">
-		    	<div ng-repeat="food in foods">
-		    		<p class="quantity">{{ food.quantity }}</p>
-		    		<p> TEST </p>
-		    	</div>
-
-		    	<div ng-repeat="food in myWelcome.list_of_foods">
-					<p>{{ food }}</p>
+		   <div id="suggest" class="tab-pane fade" ng-controller="suggestCtrl">
+			  <div class="page-header">
+			    <h1>Suggestions</h1>
+			  </div>
+			  <div class="list-group" ng-repeat="ingredient in suggestions">
+				  <li>{{ingredient}}</li>
 				</div>
-
-		    </div>
 		  </div>
 
 		  <div id="stores" class="tab-pane fade">
@@ -73,25 +67,13 @@
 			  </table>
 		  </div>
 
-		  <div id="recipes" class="tab-pane fade">
-		    <h3>RECIPES</h3>
-		    <p>Page containing the tables of recipes based on food in the fridge.</p>
-		   		    <table class="table table-hover">
-			    <thead>
-			      <tr>
-			        <th>Recipe Name</th>
-			        <th>Food Type</th>
-			        <th>Abundance</th>
-			      </tr>
-			    </thead>
-			    <tbody>
-			      <tr>
-			        <td>John</td>
-			        <td>Doe</td>
-			        <td>john@example.com</td>
-			      </tr>
-			    </tbody>
-			  </table>
+		  <div id="recipes" class="tab-pane fade" ng-controller="recipesCtrl">
+			  <div class="page-header">
+			    <h1>Recipes</h1>
+			  </div>
+			  <div class="list-group" ng-repeat="recipe in recipes">
+				  <a href="{{recipe.link}}" target="_blank" class="list-group-item">{{recipe.name}}</a>
+				</div>
 		  </div>
 
 		</div>
@@ -101,5 +83,8 @@
 
 <script src="stylesheets/js/Controllers/myApp.js"></script>
 <script src="stylesheets/js/Controllers/myCtrl.js"></script>
+<script src="stylesheets/js/Controllers/recipesCtrl.js"></script>
+<script src="stylesheets/js/Controllers/suggestCtrl.js"></script>
+
 
 </html>

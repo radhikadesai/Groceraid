@@ -10,7 +10,7 @@ app.controller("myCtrl", function($scope, $http) {
 
     $http({
         method : "GET",
-        url : "http://10.136.103.170:3000/sandbox"
+        url : "http://localhost:3000/sandbox/test"
     }).then(function mySucces(response) {
         $scope.myWelcome = response.data;
         console.log("$scope.myWelcome: ",$scope.myWelcome);
