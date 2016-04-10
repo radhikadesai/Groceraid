@@ -34,7 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/food', food);
-app.use('/sandbox', sandbox);
+app.use('/sandbox', users);
 app.use('/testData', testData);
 app.use('/testStoresData', testStoresData);
 
