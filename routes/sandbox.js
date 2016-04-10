@@ -3,8 +3,10 @@ var food = require('./food.js');
 var router = express.Router();
 
 /* You are entering my sandbox. Proceed with caution. */
-router.get('/test', function(req, res, next) {
+router.post('/test', function(req, res, next) {
 	var spawn = require("child_process").spawn;
+	var test=req.body;
+	console.log(test);
 	var jsonObj =  {'user_input':'Hello Mr. Fridge today you have milk 2 eggs and cheese'}; 
 	var process = spawn('python',["python/process_speech.py", JSON.stringify(jsonObj)]);
 	process.stdout.on('data', function (data){
