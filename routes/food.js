@@ -29,6 +29,7 @@ createFoods = function(user_input,list_of_foods){
 }
 
 router.post('/', function(req, res, next) {
+	console.log(req.body);
 	createFoods(req.body.user_input,req.body.list_of_foods);	
 });
 

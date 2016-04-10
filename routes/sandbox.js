@@ -18,7 +18,12 @@ router.post('/test', function(req, res, next) {
 
 router.get('/recipes', function(req, res, next) {
 	var spawn = require("child_process").spawn;
-	var jsonObj =  {'user_input':['chocolate', 'milk'], 'f':"recipes"}; 
+	var foodsInFridge =[];
+	for (var food in foods){
+		foodsInFridge.push(food);
+	}
+	console.log("Foods in the fridge : ",foodsInFridge)
+	var jsonObj =  {'user_input':foodsInFridge, 'f':"recipes"}; 
 	var process = spawn('python',["python/recipes.py", JSON.stringify(jsonObj)]);
 	process.stdout.on('data', function (data){
 		var x = JSON.parse(data);
@@ -28,7 +33,11 @@ router.get('/recipes', function(req, res, next) {
 
 router.get('/suggest', function(req, res, next) {
 	var spawn = require("child_process").spawn;
-	var jsonObj =  {'user_input':['chocolate', 'milk'], 'f':"suggest"}; 
+	var foodsInFridge =[];
+	for (var food in foods){
+		foodsInFridge.push(food);
+	}
+	var jsonObj =  {'user_input':foodsInFridge, 'f':"suggest"}; 
 	var process = spawn('python',["python/recipes.py", JSON.stringify(jsonObj)]);
 	process.stdout.on('data', function (data){
 		var x = JSON.parse(data);
