@@ -31,7 +31,7 @@
 		    <img class="img-responsive" src="stylesheets/Images/Icon.png" alt="Icon" width="400" height="300">
 		  </div>
 
-		   <div id="suggest" class="tab-pane fade" ng-controller="suggestCtrl">
+		   <div id="suggest" class="tab-pane fade">
 			  <div class="page-header">
 			    <h1>Suggestions</h1>
 			  </div>
@@ -67,11 +67,11 @@
 			  </table>
 		  </div>
 
-		  <div id="recipes" class="tab-pane fade" ng-controller="recipesCtrl">
-			  <div class="page-header">
-			    <h1>Recipes</h1>
-			  </div>
-			  <div class="list-group" ng-repeat="recipe in recipes">
+		  <div id="recipes" class="tab-pane fade">
+			  	<div class="page-header">
+			    	<h1>Recipes</h1>
+			  	</div>
+			  	<div class="list-group" ng-repeat="recipe in recipes">
 				  <a href="{{recipe.link}}" target="_blank" class="list-group-item">{{recipe.name}}</a>
 				</div>
 		  </div>
@@ -83,8 +83,6 @@
 
 <script src="stylesheets/js/Controllers/myApp.js"></script>
 <script src="stylesheets/js/Controllers/myCtrl.js"></script>
-<script src="stylesheets/js/Controllers/recipesCtrl.js"></script>
-<script src="stylesheets/js/Controllers/suggestCtrl.js"></script>
 
 
 </html>

@@ -26,6 +26,8 @@ stderr_log_handler.setFormatter(formatter)
 descriptors = pickle.load(open("python/resources/food_descriptors.p", "rb"))
 stopwords = pickle.load(open("python/resources/stopwords.p", "rb"))
 
+#//meta[contains(@property, 'og:image')]//@content
+
 class Worker(pykka.ThreadingActor):
     def on_receive(self, message):
         page = requests.get(message['link'])
@@ -36,6 +38,7 @@ class Worker(pykka.ThreadingActor):
         recipe['link'] = message['link']
         recipe['ingredients'] = list()
         response_ingredients = tree.xpath('//span[contains(@class, \'recipe-ingred_txt added\')]')
+        recipe['picture'] = tree.xpath('//meta[contains(@property, \'og:image\')]//@content')[0]
         for elm in response_ingredients:
             if elm.text not in "Add all ingredients to list":
                 recipe['ingredients'].append(elm.text)
@@ -75,6 +78,7 @@ def extract_recipes(ingredient_list, count=50):
         recipes[answer['name']] = dict()
         recipes[answer['name']]['ingredients'] = answer['ingredients']
         recipes[answer['name']]['link'] = answer['link']
+        recipes[answer['name']]['picture'] = answer['picture']
     for worker in workers:
         worker.stop()
     return recipes
@@ -127,7 +131,7 @@ def get_recipes(food_list):
     recipes = extract_recipes(foods[:3], 5)
     res = []
     for recipe in recipes:
-        res.append({'name': recipe, 'link': recipes[recipe]['link']})
+        res.append({'name': recipe, 'link': recipes[recipe]['link'], 'picture': recipes[recipe]['picture']})
     return res
 
 
