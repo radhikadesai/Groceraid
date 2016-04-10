@@ -17,13 +17,13 @@
 		<h2>Groceraid</h2>
 		<ul class="nav nav-tabs">
 		  <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-		  <li><a data-toggle="tab" href="#health">Health</a></li>
-		  <li><a data-toggle="tab" href="#stores">Stores</a></li>
 		  <li><a data-toggle="tab" href="#food">Food</a></li>
+		  <li><a data-toggle="tab" href="#stores">Stores</a></li>
+		  
 		  <li><a data-toggle="tab" href="#recipes">Recipes</a></li>
 		</ul>
 
-		<div class="tab-content" ng-app="myApp" ng-controller="myCtrl">
+		<div class="tab-content" ng-app="myApp">
 
 		  <div id="home" class="tab-pane fade in active">
 		    <h3>HOME</h3>
@@ -31,27 +31,47 @@
 		    <img class="img-responsive" src="Images/Icon.png" alt="Icon" width="400" height="300">
 		  </div>
 
-		  <div id="health" class="tab-pane fade">
-		    <h3>HEALTH</h3>
-		    <div class="foodItems">
-		    	<div ng-repeat="food in foods">
-		    		<p class="quantity">{{ food.quantity }}</p>
-		    		<p> TEST </p>
-		    	</div>
-
-		    	<div ng-repeat="food in myWelcome.list_of_foods">
-					<p>{{ food }}</p>
-				</div>
-
-		    </div>
+		  <div id="food" class="tab-pane fade" ng-controller="myCtrl">
+		    <h3>FOOD</h3>
+		    <table class="table table-hover">
+		    	<thead>
+		    		<tr>
+		    			<th>Food Name</th>
+		    			<th>Amount</th>
+		    		</tr>
+		    	</thead>
+		    	<tbody>
+		    		<tr ng-repeat="(key, value) in myWelcome.list_of_foods track by key">
+						<td>{{ key }}</td>
+						<td>{{ value }}</td>
+					</tr>
+		    	</tbody>
+		    </table>
 		  </div>
 
-		  <div id="stores" class="tab-pane fade">
+		  <div id="stores" class="tab-pane fade" ng-controller="myStoresCtrl">
 		    <h3>Stores</h3>
-		    <p>Page containing the tables of stores nearby</p>
-
+		    <table class="table table-hover">
+		    	<thead>
+		    		<tr>
+		    			<th>Name</th>
+		    			<th>Time</th>
+		    			<th>Distance</th>
+		    			<th>Address</th>
+		    		</tr>
+		    	</thead>
+		    	<tbody>
+		    		<tr ng-repeat="(key, value) in myWelcome.result">
+						<td>{{ key }}</td>
+						<td>{{ (value.seconds / 60) | number:2 | number }} minutes</td>
+						<td>{{ (value.meters /1000) | number:2 | number }} kilometers</td>
+						<td>{{ value.address }}</td>
+					</tr>
+		    	</tbody>
+		    </table>
 		  </div>
 
+<!--
 		  <div id="food" class="tab-pane fade">
 		    <h3>FOOD</h3>
 		    <p>Page containing the food that needs to be bought</p>
@@ -72,7 +92,7 @@
 			    </tbody>
 			  </table>
 		  </div>
-
+-->
 		  <div id="recipes" class="tab-pane fade">
 		    <h3>RECIPES</h3>
 		    <p>Page containing the tables of recipes based on food in the fridge.</p>
@@ -101,5 +121,6 @@
 
 <script src="stylesheets/js/Controllers/myApp.js"></script>
 <script src="stylesheets/js/Controllers/myCtrl.js"></script>
+<script src="stylesheets/js/Controllers/myStoresCtrl.js"></script>
 
 </html>
