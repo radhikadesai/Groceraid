@@ -96,23 +96,21 @@
                         <hr class="star-primary">
                     </div>
                 </div>
-                    <p>Page containing the food that needs to be bought</p>
-                    <table class="table table-hover">
-                        <thead>
-                          <tr>
-                            <th>Food Name</th>
-                            <th>Food Type</th>
-                            <th>Abundance</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>John</td>
-                            <td>Doe</td>
-                            <td>john@example.com</td>
-                          </tr>
-                        </tbody>
-                      </table>
+                <p>Page containing the food that needs to be bought</p>
+                <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Food Name</th>
+                        <th>Abundance</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="(key, value) in myWelcome.list_of_foods track by key">
+                        <td>{{ key }}</td>
+                        <td>{{ value }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
             </section>
 
             <!-- Suggestions Section -->
