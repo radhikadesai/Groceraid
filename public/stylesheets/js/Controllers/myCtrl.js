@@ -40,7 +40,18 @@ app.controller("myCtrl", function($scope, $http) {
         $scope.suggestions = response.statusText;
          console.log("error: ",response);
     });
-    //alert("Hello");
+
+    $http({
+        method : "GET",
+        url : "http://localhost:3000/testStoresData"
+    }).then(function mySucces(response) {
+        $scope.stores = response.data;
+        //$scope.storeDataArr = $scope.myWelcome.result;
+        console.log("$scope.stores: ",$scope.stores);
+    }, function myError(response) {
+        $scope.stores = response.statusText;
+         console.log("error: ",response);
+    });
 
 
 	$scope.firstName	= "John";
