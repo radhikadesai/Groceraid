@@ -28,25 +28,16 @@
 		  <div id="home" class="tab-pane fade in active">
 		    <h3>HOME</h3>
 		    <p>Will display logo and slogan along with possible other content</p>
-		    <img class="img-responsive" src="Images/Icon.png" alt="Icon" width="400" height="300">
+		    <img class="img-responsive" src="stylesheets/Images/Icon.png" alt="Icon" width="400" height="300">
 		  </div>
 
-		  <div id="food" class="tab-pane fade" ng-controller="myCtrl">
-		    <h3>FOOD</h3>
-		    <table class="table table-hover">
-		    	<thead>
-		    		<tr>
-		    			<th>Food Name</th>
-		    			<th>Amount</th>
-		    		</tr>
-		    	</thead>
-		    	<tbody>
-		    		<tr ng-repeat="(key, value) in myWelcome.list_of_foods track by key">
-						<td>{{ key }}</td>
-						<td>{{ value }}</td>
-					</tr>
-		    	</tbody>
-		    </table>
+		   <div id="suggest" class="tab-pane fade">
+			  <div class="page-header">
+			    <h1>Suggestions</h1>
+			  </div>
+			  <div class="list-group" ng-repeat="ingredient in suggestions">
+				  <li>{{ingredient}}</li>
+				</div>
 		  </div>
 
 		  <div id="stores" class="tab-pane fade" ng-controller="myStoresCtrl">
@@ -94,24 +85,12 @@
 		  </div>
 -->
 		  <div id="recipes" class="tab-pane fade">
-		    <h3>RECIPES</h3>
-		    <p>Page containing the tables of recipes based on food in the fridge.</p>
-		   		    <table class="table table-hover">
-			    <thead>
-			      <tr>
-			        <th>Recipe Name</th>
-			        <th>Food Type</th>
-			        <th>Abundance</th>
-			      </tr>
-			    </thead>
-			    <tbody>
-			      <tr>
-			        <td>John</td>
-			        <td>Doe</td>
-			        <td>john@example.com</td>
-			      </tr>
-			    </tbody>
-			  </table>
+			  	<div class="page-header">
+			    	<h1>Recipes</h1>
+			  	</div>
+			  	<div class="list-group" ng-repeat="recipe in recipes">
+				  <a href="{{recipe.link}}" target="_blank" class="list-group-item">{{recipe.name}}</a>
+				</div>
 		  </div>
 
 		</div>
@@ -122,5 +101,6 @@
 <script src="stylesheets/js/Controllers/myApp.js"></script>
 <script src="stylesheets/js/Controllers/myCtrl.js"></script>
 <script src="stylesheets/js/Controllers/myStoresCtrl.js"></script>
+
 
 </html>

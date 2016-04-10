@@ -10,12 +10,34 @@ app.controller("myCtrl", function($scope, $http) {
 
     $http({
         method : "GET",
-        url : "http://localhost:3000/testData"
+        url : "http://localhost:3000/sandbox/test"
     }).then(function mySucces(response) {
         $scope.myWelcome = response.data;
         console.log("$scope.myWelcome: ",$scope.myWelcome);
     }, function myError(response) {
         $scope.myWelcome = response.statusText;
+         console.log("error: ",response);
+    });
+
+    $http({
+        method : "GET",
+        url : "http://localhost:3000/sandbox/recipes"
+    }).then(function mySucces(response) {
+        $scope.recipes = response.data.result;
+        console.log("$scope.recipes: ",$scope.recipes);
+    }, function myError(response) {
+        $scope.recipes = response.statusText;
+         console.log("error: ",response);
+    });
+
+    $http({
+        method : "GET",
+        url : "http://localhost:3000/sandbox/suggest"
+    }).then(function mySucces(response) {
+        $scope.suggestions = response.data.result;
+        console.log("$scope.suggestions: ",$scope.suggestions);
+    }, function myError(response) {
+        $scope.suggestions = response.statusText;
          console.log("error: ",response);
     });
     //alert("Hello");

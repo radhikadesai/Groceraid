@@ -68,8 +68,8 @@ app.use(function(err, req, res, next) {
   });
 });
 
-server.listen(3000);
-console.log('Express server started on port %s', server.address().port);
+server.listen(3000); //, '10.136.103.170');
+console.log('Express server started on port %d', server.address().port);
 
 
 module.exports = app;
