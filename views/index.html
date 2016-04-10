@@ -22,6 +22,41 @@
     <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
 
+    <style>
+    .center-table
+    {
+        margin: 0 auto !important;
+        float: none !important;
+    }
+    .center-table td
+    {
+        padding: 8px !important;
+    }
+    .center-table th
+    {
+        padding: 8px !important;
+    }
+    .center-food-table
+    {
+        margin: 0 auto !important;
+        float: none !important;
+    }
+    .center-food-table td
+    {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        padding-bottom: 5px !important;
+        padding-top: 5px !important;
+    }
+    .center-food-table th
+    {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        padding-bottom: 5px !important;
+        padding-top: 5px !important;
+    }
+    </style>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -96,8 +131,7 @@
                         <hr class="star-primary">
                     </div>
                 </div>
-                <p>Page containing the food that needs to be bought</p>
-                <table class="table table-hover">
+                <table class="center-food-table table-hover">
                     <thead>
                       <tr>
                         <th>Food Name</th>
@@ -158,8 +192,13 @@
 
             <!-- stores Section -->
             <section id="stores" class="success" >
-                <h3>Stores</h3>
-                <table class="table table-hover">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2>Stores</h2>
+                        <hr class="star-primary">
+                    </div>
+                </div>
+                <table class="center-table table-hover">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -185,7 +224,7 @@
     <!-- Footer -->
     <footer>
         <div class="container text-center">
-            <p>Copyright &copy; Your Website 2014</p>
+            <p>Copyright &copy; Groceraid 2016</p>
         </div>
     </footer>
 
