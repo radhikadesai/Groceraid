@@ -105,9 +105,9 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr ng-repeat="(key, value) in myWelcome.list_of_foods track by key">
+                      <tr ng-repeat="(key, value) in myWelcome track by key">
                         <td>{{ key }}</td>
-                        <td>{{ value }}</td>
+                        <td>{{ value.abundance }}</td>
                       </tr>
                     </tbody>
                   </table>

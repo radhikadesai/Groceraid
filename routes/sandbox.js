@@ -1,5 +1,7 @@
 var express = require('express');
 var food = require('./food.js');
+var geolocate=require('geolocate');
+var geocoder=require('geocoder');
 var router = express.Router();
 
 /* You are entering my sandbox. Proceed with caution. */
@@ -44,7 +46,22 @@ router.get('/suggest', function(req, res, next) {
 		res.send(JSON.stringify(x));
 	});
 });
+router.get('/location',function(req,res,next)
+{  
+	var latitude;
+	var longitude;
+	geolocate(function(latLong)
+	{
+        latitude=latLong[0];
+        longitude=latLong[1];
+        console.log("location is",longitude);
+	});
+	geocoder.reverseGeocode(latitude,longitude,function(err,data)
+	{
+       console.log(data);
+	});
 
+});
 router.get('/maps', function(req, res, next) {
 	var spawn = require("child_process").spawn;
 	var jsonObj =  {'user_input':'1309 NW 5th Ave, Gainesville, FL'};
