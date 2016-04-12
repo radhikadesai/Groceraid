@@ -61,13 +61,15 @@ def extract_recipes(ingredient_list, count=50):
     response = tree.xpath('//article[contains(@class, \'grid-col--fixed-tiles\')]//@href')
     # Extract search result links
     links = set()
-    for i in xrange(min(count * 2, len(response))):
-        if "/recipe/" in str(response[i]):
-            links.add(base_url + response[i])
+    for r in response:
+        if "/recipe/" in str(r):
+            links.add(base_url + r)
     # Spawn workers to process each link
+    links = list(links)
+    shuffle(links)
     futures, workers = [], []
-    for link in links:
-        message = {'link': link}
+    for i in xrange(min(count, len(links))):
+        message = {'link': links[i]}
         actor_ref = Worker.start()
         workers.append(actor_ref)
         futures.append(actor_ref.ask(message, block=False))
@@ -98,48 +100,68 @@ def clean(sentence, splitter=","):
     return " ".join(cleaned)
 
 
-def suggest(food_list):
-    foods = copy.deepcopy(food_list)
-    vect = TfidfVectorizer(min_df=1)
-    suggestions = []
-    while len(foods) > 0:
-        query = []
-        while len(query) < 3 and len(foods) > 0:
-            item = choice(foods)
-            query.append(item)
-            foods.remove(item)
-        recipes = extract_recipes(query, 5)
-        for recipe in recipes:
-            for ingredient in recipes[recipe]['ingredients']:
-                cleaned = clean(ingredient)
-                if len(cleaned) > 0:
-                    suggestions.append(clean(ingredient))
-    tf_idf = vect.fit_transform(suggestions)
-    m = (tf_idf * tf_idf.T).A
-    sums = np.sum(m, axis=0)
-    sorted_suggestions = [x for y, x in sorted(zip(sums, suggestions), reverse=True) if y > 2]
-    suggestions = []
-    for suggestion in sorted_suggestions:
-        if suggestion not in suggestions and not any(x in suggestion for x in food_list):
-            suggestions.append(suggestion)
-    return suggestions
+# def suggest(food_list):
+#     foods = copy.deepcopy(food_list)
+#     vect = TfidfVectorizer(min_df=1)
+#     suggestions = []
+#     res = []
+#     while len(foods) > 0:
+#         query = []
+#         while len(query) < 3 and len(foods) > 0:
+#             item = choice(foods)
+#             query.append(item)
+#             foods.remove(item)
+#         recipes = extract_recipes(query, 3)
+#         for recipe in recipes:
+#             res.append({'name': recipe, 'link': recipes[recipe]['link'], 'picture': recipes[recipe]['picture']})
+#         for recipe in recipes:
+#             for ingredient in recipes[recipe]['ingredients']:
+#                 cleaned = clean(ingredient)
+#                 if len(cleaned) > 0:
+#                     suggestions.append(clean(ingredient))
+#     tf_idf = vect.fit_transform(suggestions)
+#     m = (tf_idf * tf_idf.T).A
+#     sums = np.sum(m, axis=0)
+#     sorted_suggestions = [x for y, x in sorted(zip(sums, suggestions), reverse=True) if y > 1]
+#     suggestions = []
+#     for suggestion in sorted_suggestions:
+#         if suggestion not in suggestions and not any(x in suggestion for x in food_list):
+#             suggestions.append(suggestion)
+#     return {'recipes' : res, 'suggestions': suggestions}
 
 
 def get_recipes(food_list):
     foods = copy.deepcopy(food_list)
-    shuffle(foods)
-    recipes = extract_recipes(foods[:3], 5)
+    recipes = []
+    tries = 0
+    while len(recipes) < 1 and tries < 5:
+        shuffle(foods)
+        recipes = extract_recipes(foods[:randint(1, 3)], 3)
+        tries += 1
     res = []
+    suggestions = []
     for recipe in recipes:
         res.append({'name': recipe, 'link': recipes[recipe]['link'], 'picture': recipes[recipe]['picture']})
-    return res
+        for ingredient in recipes[recipe]['ingredients']:
+            cleaned = clean(ingredient)
+            if len(cleaned) > 0:
+                suggestions.append(cleaned)
+    vect = TfidfVectorizer(min_df=1)
+    tf_idf = vect.fit_transform(suggestions)
+    m = (tf_idf * tf_idf.T).A
+    sums = np.sum(m, axis=0)
+    sorted_entries = [(y, x) for y, x in sorted(zip(sums, suggestions), reverse=True) if y > 1.2]
+    suggestions = []
+    repeats = []
+    for frequency, suggestion in sorted_entries:
+        if suggestion not in repeats:
+            suggestions.append({'ingredient': suggestion, 'frequency': int(frequency)})
+            repeats.append(suggestion)
+    return {'recipes': res, 'suggestions': suggestions}
 
 
 data = json.loads(sys.argv[1])
-if data['f'] == "recipes":
-    data['result'] = get_recipes(data['user_input'])
-else:
-    data['result'] = suggest(data['user_input'])
+data['result'] = get_recipes(data['user_input'])
 data = json.dumps(data)
 
 # logger.error(data)
