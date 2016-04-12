@@ -3,17 +3,17 @@ import json
 import sys
 
 
-def extract_distances(location='1309 NW 5th Ave, Gainesville, FL', key='AIzaSyCyKFoosxiZo-j_i5TE113FbOtGnj1Ls2Q'):
+def extract_distances(origin=(51.5034070, -0.1275920), key='AIzaSyCyKFoosxiZo-j_i5TE113FbOtGnj1Ls2Q'):
     """
     Extracts possible distance measures to all nearby grocery stores from a specified location
-    :param location: String address (this will be long/lat coordinates in future)
+    :param origin: long/lat coordinates
     :param key: API key; Get your own if you don't already have one
     :return: Distance metrics dictionary (includes time in seconds and distance in meters from origin to each store)
     """
     maps = googlemaps.Client(key)
     # Convert address to long/lat coordinates
-    origin = maps.geocode(location)
-    origin = (origin[0][u'geometry'][u'location'][u'lat'], origin[0][u'geometry'][u'location'][u'lng'])
+    # origin = maps.geocode(location)
+    # origin = (origin[0][u'geometry'][u'location'][u'lat'], origin[0][u'geometry'][u'location'][u'lng'])
     # Acquire nearby stores
     nearby_stores = maps.places('grocery', origin, language='English', radius=10)
     store_addresses = []

@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-GLOBAL.foods={}
+GLOBAL.foods={"milk":{abundance : 0},"chocolate":{abundance: 1}, "strawberries":{abundance: 1}, "ice cream":{abundance: 1}}
 
 // foods : {"milk":{abundance : 0, consumption : [], last_trip : timestamp(0 initially) },
 //			"eggs":{abundance: 1, consumption : [], last_trip : timestamp}}
@@ -33,6 +33,8 @@ createFoods = function(user_input,list_of_foods){
 	}
 }
 router.post('/', function(req, res, next) {
+	console.log(req.body);
+	createFoods(req.body.user_input,req.body.list_of_foods);	
 	var spawn = require("child_process").spawn;
 	var test=req.body;
 	console.log(test);
