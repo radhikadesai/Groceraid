@@ -1,4 +1,4 @@
-app.controller("myCtrl", function($scope, $http) {
+app.controller("myCtrl", function($scope, $http, $timeout) {
   
   /*
   $http.get("http://10.136.103.170:3000/sandbox")
@@ -7,17 +7,91 @@ app.controller("myCtrl", function($scope, $http) {
         alert("Worked");
     });
 */
+/*
+    $scope.onTimeout = function($scope, $timeout){
+      $scope.counter--;
+      console.log(this.count);
+      if($scope.counter > 0){
+        mytimeout = $timeout($scope.onTimeout,1000);
+      }
 
+      else{
+        console.log("Time to go shopping!");
+      }
+    }
+
+    $scope.timeFunction = function($scope, $timeout){
+      //Counter needs to actually be initialized with the min value of the foods list's time
+      //until something is predicted to run out
+      /*
+      $scope.onTimeout = function($scope, $timeout){
+        $scope.counter--;
+        console.log(this.count);
+        if($scope.counter > 0){
+          mytimeout = $timeout($scope.onTimeout,1000);
+        }
+
+        else{
+          console.log("Time to go shopping!");
+        }
+      }
+      var mytimeout = $timeout($scope.onTimeout($scope),1000);
+        
+      $scope.reset= function(){
+        $scope.counter = 5;
+        mytimeout = $timeout($scope.onTimeout,1000);
+      }
+    };
+    */
+    /*
     $http({
         method : "GET",
         url : "http://localhost:3000/food"
     }).then(function mySucces(response) {
         $scope.myWelcome = response.data;
         console.log("$scope.myWelcome: ",$scope.myWelcome);
+        /*
+        $scope.counter = 15;
+        $scope.myTimeFunction = $scope.timeFunction();
+        $scope.onTimeout = function($scope, $timeout){
+          $scope.counter--;
+          console.log(this.count);
+          if($scope.counter > 0){
+            mytimeout = $timeout($scope.onTimeout,1000);
+          }
+
+          else{
+            console.log("Time to go shopping!");
+          }
+        }
+        */
+        /*
+        $scope.timeFunction = function($scope, $timeout){
+          //Counter needs to actually be initialized with the min value of the foods list's time
+          //until something is predicted to run out
+          $scope.onTimeout = function($scope, $timeout){
+            $scope.counter--;
+            console.log(this.count);
+            if($scope.counter > 0){
+              mytimeout = $timeout($scope.onTimeout,1000);
+            }
+
+            else{
+              console.log("Time to go shopping!");
+            }
+          }
+          var mytimeout = $timeout($scope.onTimeout,1000);
+            
+            $scope.reset= function(){
+                $scope.counter = 5;
+                mytimeout = $timeout($scope.onTimeout,1000);
+            }
+        };
     }, function myError(response) {
         $scope.myWelcome = response.statusText;
          console.log("error: ",response);
     });
+*/
 
     $http({
         method : "GET",

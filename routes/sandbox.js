@@ -1,7 +1,7 @@
 var express = require('express');
 var food = require('./food.js');
-var geolocate=require('geolocate');
-var geocoder=require('geocoder');
+//var geolocate=require('geolocate');
+//var geocoder=require('geocoder');
 var router = express.Router();
 
 /* You are entering my sandbox. Proceed with caution. */
