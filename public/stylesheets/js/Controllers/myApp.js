@@ -3,13 +3,35 @@ var app = angular.module("myApp", []);
 app.controller("timeCtrl", function($scope, $http, $timeout){
 	//Counter needs to actually be initialized with the min value of the foods list's time
 	//until something is predicted to run out
+  $scope.foodName = "pizza";
+  
 	$http({
         method : "GET",
         url : "http://localhost:3000/food"
     }).then(function mySucces(response) {
         $scope.myWelcome = response.data;
         console.log("$scope.myWelcome: ",$scope.myWelcome);
+
         $scope.counter = 3600;
+        $scope.numFoods = 0;
+        for(var food in $scope.myWelcome){
+          $scope.numFoods += $scope.myWelcome[food].abundance;
+        }
+
+    }, function myError(response) {
+        $scope.myWelcome = response.statusText;
+         console.log("error: ",response);
+    });
+
+	$http({
+        method : "GET",
+        url : "http://localhost:3000/food/time_to_next_trip"
+    }).then(function mySucces(response) {
+        $scope.counter = response.data.time_to_trip;
+        console.log("$scope.myWelcome: ",$scope.myWelcome);
+        console.log("TimeResponseData: ", response.data);
+        console.log("$scope.counter: ",$scope.counter);
+
         //$scope.myTimeFunction = $scope.timeFunction();
         /*
         $scope.onTimeout = function($scope, $timeout){
@@ -24,6 +46,74 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
           }
         }
         */
+
+        $scope.plusOne = function(key){
+          // $scope.myWelcome[key].abundance+=1;
+          // console.log($scope.myWelcome.size);
+          $http({
+            method : "POST",
+            url : "http://localhost:3000/food/inc_abundance",
+            data : { food: key}
+
+          }).then(function mySucces(response) {
+                $scope.myWelcome = response.data;
+                $scope.numFoods += 1;
+             }, function myError(response) {
+             
+              console.log("error: ",response);
+             });
+         
+        };
+
+        $scope.minusOne = function(key){
+          //$scope.myWelcome[key].abundance-=1;
+          $http({
+            method : "POST",
+            url : "http://localhost:3000/food/dec_abundance",
+            data : { food: key}
+
+          }).then(function mySucces(response) {
+                $scope.myWelcome = response.data;
+                $scope.numFoods -=1;
+             }, function myError(response) {
+             
+              console.log("error: ",response);
+             });
+         };
+
+        $scope.hideLessThanZero = function(value){
+            if(value <= 0)
+              return false;
+            else
+              return true;
+        }
+
+        $scope.showTable = function(){
+         
+          if($scope.numFoods <= 0)
+            return false;
+          else 
+            return true;
+
+        }
+
+        $scope.addFood = function(){
+            console.log($scope.foodName);
+             $http({
+                method : "POST",
+                url : "http://localhost:3000/food/add_food",
+                data : { food: $scope.foodName}
+
+             }).then(function mySucces(response) {
+                $scope.myWelcome = response.data;
+                $scope.numFoods += 1;
+             }, function myError(response) {
+             
+              console.log("error: ",response);
+             });
+
+        }
+
         $scope.Math = Math;
         $scope.timeFunction = function($scope, $timeout){
           //Counter needs to actually be initialized with the min value of the foods list's time
@@ -51,11 +141,14 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
          console.log("error: ",response);
     });
 
-	$scope.counter = 15;
-	$scope.timeUntil = Date.now() - $scope.counter;
+	//$scope.counter = 15;
+	//$scope.timeUntil = Date.now() - $scope.counter;
 	$scope.onTimeout = function(){
 		$scope.counter--;
-		console.log(this.count);
+
+		//console.log(this.count);
+		//console.log("CounterValue: ", $scope.counter);
+
 		if($scope.counter > 0){
 			mytimeout = $timeout($scope.onTimeout,1000);
 		}
@@ -72,8 +165,10 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
     }
 });
 
+
 app.filter('secondsToDateTime', [function(){
 	return function(seconds) {
 		return new Date(1970, 0, 1).setSeconds(seconds);
 	};
+
 }])

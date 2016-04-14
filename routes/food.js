@@ -76,7 +76,7 @@ router.get('/time_to_next_trip',function(req, res, next){
 		    min=Math.min(min,avg);
 		}
 	}
-	res.send(min);
+	res.send({"time_to_trip": min/1000});
 });
 
 //router.post('/', function(req, res, next) {
@@ -93,4 +93,33 @@ router.get('/', function(req, res, next) {
 	}
 	res.send(foodsToSend);
 });
+
+router.post('/dec_abundance',function(req, res, next){
+ 	var food_name = req.body.food
+ 	foods[food_name].abundance -= 1
+ 	res.send(foods);
+ 	console.log(foods);
+});
+
+router.post('/inc_abundance',function(req, res, next){
+ 	var food_name = req.body.food
+ 	foods[food_name].abundance += 1
+ 	res.send(foods);
+ 	console.log(foods);
+});
+
+router.post('/add_food',function(req, res, next){
+	console.log(req.body.food);
+ 	var food_name = req.body.food
+ 	if(foods[food_name]){
+		foods[food_name].abundance = foods[food_name].abundance + 1;
+	}
+	else{
+		foods[food_name] = {abundance : 1}
+	}
+ 	res.send(foods);
+ 	console.log(foods);
+
+});
+
 module.exports = router;
