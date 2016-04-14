@@ -22,7 +22,8 @@ body {
     margin: auto;
     width: 1200px;
     text-align: center;
-    font-size: 72px;
+    font-size: 80px;
+    font-family:Impact, 'Charcoal', sans-serif;
 }
 
 hr {
