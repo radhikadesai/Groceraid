@@ -9,7 +9,19 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
     }).then(function mySucces(response) {
         $scope.myWelcome = response.data;
         console.log("$scope.myWelcome: ",$scope.myWelcome);
-        $scope.counter = 8;
+    }, function myError(response) {
+        $scope.myWelcome = response.statusText;
+         console.log("error: ",response);
+    });
+
+	$http({
+        method : "GET",
+        url : "http://localhost:3000/food/time_to_next_trip"
+    }).then(function mySucces(response) {
+        $scope.counter = response.data.time_to_trip;
+        console.log("$scope.myWelcome: ",$scope.myWelcome);
+        console.log("TimeResponseData: ", response.data);
+        console.log("$scope.counter: ",$scope.counter);
         //$scope.myTimeFunction = $scope.timeFunction();
         /*
         $scope.onTimeout = function($scope, $timeout){
@@ -51,11 +63,11 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
          console.log("error: ",response);
     });
 
-	$scope.counter = 15;
+	//$scope.counter = 15;
 	//$scope.timeUntil = Date.now() - $scope.counter;
 	$scope.onTimeout = function(){
 		$scope.counter--;
-		console.log(this.count);
+		//console.log("CounterValue: ", $scope.counter);
 		if($scope.counter > 0){
 			mytimeout = $timeout($scope.onTimeout,1000);
 		}

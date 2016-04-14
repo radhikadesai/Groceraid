@@ -48,7 +48,8 @@ router.post('/', function(req, res, next) {
 });
 
 router.get('/time_to_next_trip',function(req, res, next){
-	
+	var seconds = 10002;
+	res.send({"time_to_trip": seconds});
 });
 //router.post('/', function(req, res, next) {
 	//createFoods(req.body.user_input,req.body.list_of_foods);	

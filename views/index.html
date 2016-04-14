@@ -108,7 +108,7 @@
                     </tbody>
                   </table>
                   <hr class="timerDivider">
-                <div class="timetester">
+                <div class="timetester" ng-model="timeFunction">
                     <h3>Time until next shopping trip: </h3>
                     {{ Math.floor(counter/3600) }} Hours, {{ Math.floor(counter/60) - 60*(Math.floor(counter/3600)) }} Minutes, {{ counter - (Math.floor(counter/3600) * 3600) - (60 * (Math.floor(counter/60) - 60*(Math.floor(counter/3600)))) }} Seconds
                 </div>
