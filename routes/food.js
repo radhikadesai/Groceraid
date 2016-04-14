@@ -47,7 +47,7 @@ router.post('/', function(req, res, next) {
 
 router.get('/time_to_next_trip',function(req, res, next){
 	var total=0;
-	var min;
+	var min =0;
 	// Set the min as the first non-empty consumption in the fridge   
    	for(var food in foods){
    		if(foods[food].consumption.length>0){
