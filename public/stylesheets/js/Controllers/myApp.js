@@ -9,7 +9,7 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
     }).then(function mySucces(response) {
         $scope.myWelcome = response.data;
         console.log("$scope.myWelcome: ",$scope.myWelcome);
-        $scope.counter = 3600;
+        $scope.counter = 3;
         //$scope.myTimeFunction = $scope.timeFunction();
         /*
         $scope.onTimeout = function($scope, $timeout){
@@ -52,7 +52,7 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
     });
 
 	$scope.counter = 15;
-	$scope.timeUntil = Date.now() - $scope.counter;
+	//$scope.timeUntil = Date.now() - $scope.counter;
 	$scope.onTimeout = function(){
 		$scope.counter--;
 		console.log(this.count);
