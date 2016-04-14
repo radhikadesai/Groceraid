@@ -145,11 +145,10 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
 	//$scope.timeUntil = Date.now() - $scope.counter;
 	$scope.onTimeout = function(){
 		$scope.counter--;
-<<<<<<< HEAD
+
 		//console.log(this.count);
-=======
 		//console.log("CounterValue: ", $scope.counter);
->>>>>>> origin/master
+
 		if($scope.counter > 0){
 			mytimeout = $timeout($scope.onTimeout,1000);
 		}
