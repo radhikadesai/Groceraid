@@ -14,13 +14,15 @@ body {
     font-family: Merriweather,'Helvetica Neue',Arial,sans-serif;
 }
 
+.timerDivider {
+    margin-top: 100px !important;
+}
+
 .timetester {
     margin: auto;
-    width: 400px;
+    width: 1200px;
     text-align: center;
-    border: 1px solid;
-    font-size: 18px;
-    background-color: #bbb;
+    font-size: 72px;
 }
 
 hr {
@@ -487,7 +489,7 @@ body {
 {
     margin: 0 auto !important;
     text-align: center;
-    font-size: 40px;
+    font-size: 80px;
     padding-top: 15px;
     color: #c00;
 }
