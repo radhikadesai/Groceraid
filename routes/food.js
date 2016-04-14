@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
-GLOBAL.foods={"milk":{abundance : 0},"chocolate":{abundance: 1}, "strawberries":{abundance: 1}, "ice cream":{abundance: 1}}
+GLOBAL.foods={"milk":{abundance : 0,consumption : [], last_trip : 0},
+			"chocolate":{abundance: 1,consumption : [], last_trip : 0},
+			 "strawberries":{abundance: 1,consumption : [], last_trip : 0}, 
+			"ice cream":{abundance: 1,consumption : [], last_trip : 0}}
 
 // foods : {"milk":{abundance : 0, consumption : [], last_trip : timestamp(0 initially) },
 //			"eggs":{abundance: 1, consumption : [], last_trip : timestamp}}
@@ -8,7 +11,6 @@ GLOBAL.foods={"milk":{abundance : 0},"chocolate":{abundance: 1}, "strawberries":
 // {"user_input":"Hello Mr. Fridge today you have milk eggs and cheese","list_of_foods":["milk","eggs","cheese"]}
 // TODO : Add a number to the food type, eg. 4 eggs, 2 milk
 createFoods = function(user_input,list_of_foods){
-	console.log("List of foods : ", list_of_foods);
 	if(user_input.includes("low on")){
 		if(foods!=undefined){
 			req.body.list_of_foods.forEach(function(food){
@@ -22,42 +24,67 @@ createFoods = function(user_input,list_of_foods){
 				foods[food].abundance = foods[food].abundance + 1;
 			}
 			else{
-				foods[food] = {abundance : 1}
+				foods[food] = {abundance : 1,consumption : [], last_trip : 0}
 			}
 			var now = Date.now();
-			if(last_trip!==0){
-				consumption.push(now-foods[food].last_trip);
+			if(foods[food].last_trip!==0){
+				foods[food].consumption.push(now-foods[food].last_trip);
 			}
 			foods[food].last_trip = now;
 		});
 	}
 }
 router.post('/', function(req, res, next) {
-	console.log(req.body);
-	createFoods(req.body.user_input,req.body.list_of_foods);	
 	var spawn = require("child_process").spawn;
 	var test=req.body;
-	console.log(test);
-	var jsonObj =  {'user_input':'Hello Mr. Fridge today you have milk 2 eggs and cheese'};
-	var process = spawn('python',["python/process_speech.py", JSON.stringify(jsonObj)]);
+	var process = spawn('python',["python/process_speech.py", JSON.stringify(test)]);
 	process.stdout.on('data', function (data){
 		var x = JSON.parse(data);
 		createFoods(x.user_input, x.list_of_foods);
-		res.send(foods);
+		console.log("Foods in Fridge : ",foods)
 	});
 });
 
 router.get('/time_to_next_trip',function(req, res, next){
-	
+	var total=0;
+	var min;
+	// Set the min as the first non-empty consumption in the fridge   
+   	for(var food in foods){
+   		if(foods[food].consumption.length>0){
+   			var i=0;
+   			while( i < foods[food].consumption.length)
+			{
+			    total=total+foods[food].consumption[i];
+			    i++;
+			}
+   			min= total/(foods[food].consumption.length);
+   		}
+   		break;
+   	}
+   	// calculate the min time for all the foods in the fridge
+	for(var food in foods){
+		total =0;
+		var i=0;
+    	while( i < foods[food].consumption.length)
+		{
+		    total=total+foods[food].consumption[i];
+		    i++;
+		}
+		if(foods[food].consumption.length>0)
+		{ 
+			var avg=total/(foods[food].consumption.length);
+		    min=Math.min(min,avg);
+		}
+	}
+	res.send(min);
 });
+
 //router.post('/', function(req, res, next) {
 	//createFoods(req.body.user_input,req.body.list_of_foods);	
 //});
 
 // Gets all the foods in the fridge whose abundance is > 0
 router.get('/', function(req, res, next) {
-	//GET USER'S LOCATION
-	console.log("in get : ",foods)
 	var foodsToSend={};
 	for(var food in foods){
 		if(foods[food].abundance>0){
