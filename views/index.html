@@ -46,7 +46,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">Start Bootstrap</a>
+                <a class="navbar-brand page-scroll" href="#page-top">Groceraid</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -64,6 +64,9 @@
                     <li>
                         <a class="page-scroll" href="#stores">Stores</a>
                     </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">Support</a>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -77,7 +80,7 @@
                 <h1>Groceraid</h1>
                 <hr>
                 <p>You can call me Mr. Fridge</p>
-                <a href="#food" class="btn btn-primary btn-xl page-scroll">Find Out More</a>
+                <a href="#food" class="btn btn-primary btn-xl page-scroll">Check your foods</a>
             </div>
         </div>
     </header>
@@ -90,7 +93,7 @@
                         <hr class="star-primary">
                     </div>
                 </div>
-           
+
                 <table class="center-food-table table-hover">
                     <thead>
                       <tr ng-show="showTable()">
@@ -111,6 +114,7 @@
                     </tbody>
                   </table>
 
+
                 <form class="form-inline">
                 
                   <div class="form-group">
@@ -128,11 +132,15 @@
                     <div class="col-sm-offset-4 col-sm-4">
                         <button ng-click="addFood()" type="submit" class="btn btn-primary">Submit</button>
                     </div>
-
                 </form>
-                <div class="timetester">
-                    <p>Time until next shopping trip: </p>
-                    {{ Math.floor(counter/3600) }} hours, {{ Math.floor(counter/60) - 60*(Math.floor(counter/3600)) }} minutes, {{ counter - (Math.floor(counter/3600) * 3600) - (60 * (Math.floor(counter/60) - 60*(Math.floor(counter/3600)))) }} seconds
+                
+                  <hr class="timerDivider">
+                <div class="timetester" ng-model="timeFunction">
+                    <h3>Time until next shopping trip: </h3>
+                    {{ Math.floor(counter/3600) }} Hours, {{ Math.floor(counter/60) - 60*(Math.floor(counter/3600)) }} Minutes, {{ counter - (Math.floor(counter/3600) * 3600) - (60 * (Math.floor(counter/60) - 60*(Math.floor(counter/3600)))) }} Seconds
+                </div>
+                <div class="shoppingMessage" ng-if="counter === 0">
+                    <h2>Go Grocery Shopping!</h2>
                 </div>
             </section>
 
@@ -159,6 +167,30 @@
             </div>
         </div>
     </section> -->
+
+    <!-- recipes Section -->
+    <section id="recipes">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Recipies</h2>
+                    <hr class="star-primary">
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6" ng-repeat="recipe in recipes">
+                <a href="{{recipe.link}}" class="portfolio-box" target="_blank">
+                    <img src="{{recipe.picture}}" class="img-responsive img-circle">
+                    <div class="portfolio-box-caption">
+                        <div class="portfolio-box-caption-content">
+                            <div class="project-name">
+                                {{recipe.name}}
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
 
     <!-- Suggestions Section -->
     <section id="suggest">
@@ -212,30 +244,30 @@
         </table>
     </section>
 
-    <aside class="bg-dark">
+    <!-- <aside class="bg-dark">
         <div class="container text-center">
             <div class="call-to-action">
                 <h2>Free Download at Start Bootstrap!</h2>
                 <a href="#" class="btn btn-default btn-xl wow tada">Download Now!</a>
             </div>
         </div>
-    </aside>
+    </aside> -->
 
     <section id="contact">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 class="section-heading">Let's Get In Touch!</h2>
+                    <h2 class="section-heading">Google Support</h2>
                     <hr class="primary">
-                    <p>Ready to start your next project with us? That's great! Give us a call or send us an email and we will get back to you as soon as possible!</p>
+                    <p>Have any issues or concerns? Please contact our support phone line or visit our support webpage.</p>
                 </div>
                 <div class="col-lg-4 col-lg-offset-2 text-center">
                     <i class="fa fa-phone fa-3x wow bounceIn"></i>
-                    <p>123-456-6789</p>
+                    <p>(855)-836-3987</p>
                 </div>
                 <div class="col-lg-4 text-center">
                     <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"></i>
-                    <p><a href="mailto:your-email@your-domain.com">feedback@startbootstrap.com</a></p>
+                    <p><a href="https://www.google.com/intl/en/contact/">https://www.google.com/intl/en/contact/</a></p>
                 </div>
             </div>
         </div>
