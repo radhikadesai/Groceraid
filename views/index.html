@@ -83,27 +83,53 @@
     </header>
 
    <!-- food Section -->
-            <section id="food" ng-controller="timeCtrl">
+        <section id="food" class="success" ng-controller="timeCtrl">
                 <div class="row">
                     <div class="col-lg-12 text-center">
                         <h2>Fridge Contents</h2>
                         <hr class="star-primary">
                     </div>
                 </div>
-                <table class="table table-hover">
+           
+                <table class="center-food-table table-hover">
                     <thead>
-                      <tr>
+                      <tr ng-show="showTable()">
                         <th>Food Name</th>
                         <th>Abundance</th>
+                        <th>Increase Abundance</th>
+                        <th>Decrease Abundance</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr ng-repeat="(key, value) in myWelcome track by key">
-                        <td>{{ key }}</td>
-                        <td>{{ value.abundance }}</td>
+                      <tr ng-repeat="(key, value) in myWelcome">
+                        <td ng-show="hideLessThanZero(value.abundance)">{{ key }}</td>
+                        <td ng-show="hideLessThanZero(value.abundance)">{{ value.abundance }}</td>
+                        <td ng-show="hideLessThanZero(value.abundance)"> <button type="button" class="btn btn-primary" ng-click="plusOne(key)"> + </button> </td>
+                        <td ng-show="hideLessThanZero(value.abundance)"> <button type="button" class="btn btn-primary" ng-click="minusOne(key)"> - </button> </td>
+                        <!--<td><a class="btn btn-primary" ng-click="vm.remove()"> -->
                       </tr>
                     </tbody>
                   </table>
+
+                <form class="form-inline">
+                
+                  <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-4">
+                        <label for="Food Name">Add A Food</label>
+                        <input ng-model="foodName" type="name" class="form-control" id="Food Name" placeholder="Food Name">
+                    </div>
+                  </div>
+                  <!-- <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-4">
+                        <label for="Abundance">Abundance</label>
+                        <input type="number" class="form-control" id="Abundance" placeholder="Abundance">
+                    </div>
+                  </div> -->
+                    <div class="col-sm-offset-4 col-sm-4">
+                        <button ng-click="addFood()" type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+
+                </form>
                 <div class="timetester">
                     <p>Time until next shopping trip: </p>
                     {{ Math.floor(counter/3600) }} hours, {{ Math.floor(counter/60) - 60*(Math.floor(counter/3600)) }} minutes, {{ counter - (Math.floor(counter/3600) * 3600) - (60 * (Math.floor(counter/60) - 60*(Math.floor(counter/3600)))) }} seconds
