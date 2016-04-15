@@ -37,7 +37,7 @@ def extract_distances(origin=(51.5034070, -0.1275920), key='AIzaSyCyKFoosxiZo-j_
 
 
 data = json.loads(sys.argv[1])
-data['result'] = extract_distances(data['user_input'])
+data['result'] = extract_distances(origin=(data['user_input']['lat'], data['user_input']['long']))
 data = json.dumps(data)
 print data
 sys.stdout.flush()
