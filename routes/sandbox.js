@@ -1,7 +1,7 @@
 var express = require('express');
 var food = require('./food.js');
-//var geolocate=require('geolocate');
-//var geocoder=require('geocoder');
+var geolocate=require('geolocate');
+// var geocoder=require('geocoder');
 var router = express.Router();
 
 /* You are entering my sandbox. Proceed with caution. */
@@ -36,16 +36,18 @@ router.get('/location',function(req,res,next)
 	var latitude;
 	var longitude;
 	geolocate(function(latLong)
-	{
-        latitude=latLong[0];
+	{   latitude=latLong[0];
         longitude=latLong[1];
-        console.log("location is",longitude);
+         var spawn = require("child_process").spawn;
+	var jsonObj =  {'user_input':{'lat':latitude,'long':longitude}};
+	var process = spawn('python',["python/maps.py", JSON.stringify(jsonObj)]);
+	process.stdout.on('data', function (data){
+		var x = JSON.parse(data);
+		res.send(JSON.stringify(x));
 	});
-	geocoder.reverseGeocode(latitude,longitude,function(err,data)
-	{
-       console.log(data);
-	});
-
+    });
+   
+	
 });
 router.get('/maps', function(req, res, next) {
 	var spawn = require("child_process").spawn;

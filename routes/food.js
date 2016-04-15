@@ -58,8 +58,8 @@ router.get('/time_to_next_trip',function(req, res, next){
 			    i++;
 			}
    			min= total/(foods[food].consumption.length);
+   			break;
    		}
-   		break;
    	}
    	// calculate the min time for all the foods in the fridge
 	for(var food in foods){
