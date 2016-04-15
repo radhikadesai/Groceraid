@@ -17,22 +17,19 @@ def extract_distances(origin=(51.5034070, -0.1275920), key='AIzaSyCyKFoosxiZo-j_
     # Acquire nearby stores
     nearby_stores = maps.places('grocery', origin, language='English', radius=10)
     store_addresses = []
-    time_debt = dict()
+    time_debt = []
     for store in nearby_stores[u'results']:
         store_addresses.append((store[u'name'], store[u'formatted_address']))
-        time_debt[store[u'name']] = dict()
-        time_debt[store[u'name']]['address'] = store[u'formatted_address']
     # Compute distance from origin to each store
     distances = maps.distance_matrix(origin, [address for (name, address) in store_addresses],
                                       mode="driving", language='English')
     dist_list = []
     for element in distances[u'rows'][0][u'elements']:
         dist_list.append((element[u'duration'][u'value'], element[u'distance'][u'value']))
-    idx = 0
-    for (name, address) in store_addresses:
-        time_debt[name]['seconds'] = dist_list[idx][0]
-        time_debt[name]['meters'] = dist_list[idx][1]
-        idx += 1
+    durations, distances = zip(*dist_list)
+    sorted_duration = [(x, y, z) for x, y, z in sorted(zip(durations, distances, store_addresses))]
+    for (dur, dist, (name, address)) in sorted_duration:
+        time_debt.append({'seconds': dur, 'meters': dist, 'name': name, 'address': address})
     return time_debt
 
 
