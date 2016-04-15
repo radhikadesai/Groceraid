@@ -27,7 +27,7 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
         method : "GET",
         url : "http://localhost:3000/food/time_to_next_trip"
     }).then(function mySucces(response) {
-        $scope.counter = response.data.time_to_trip;
+        $scope.counter = Math.floor(response.data.time_to_trip);
         console.log("$scope.myWelcome: ",$scope.myWelcome);
         console.log("TimeResponseData: ", response.data);
         console.log("$scope.counter: ",$scope.counter);
@@ -148,6 +148,7 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
 	//$scope.counter = 15;
 	//$scope.timeUntil = Date.now() - $scope.counter;
 	$scope.onTimeout = function(){
+    //$scope.counter = Math.floor($scope.counter);
     if($scope.counter > 0)
     {
       $scope.counter--;

@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
-GLOBAL.foods={"milk":{abundance : 0,consumption : [], last_trip : 0},
-			"chocolate":{abundance: 1,consumption : [], last_trip : 0},
-			 "strawberries":{abundance: 1,consumption : [], last_trip : 0}, 
-			"ice cream":{abundance: 1,consumption : [], last_trip : 0}}
+GLOBAL.foods={"milk":{abundance : 0,consumption : [10000], last_trip : 0},
+			"chocolate":{abundance: 1,consumption : [10000], last_trip : 0},
+			 "strawberries":{abundance: 1,consumption : [10000], last_trip : 0}, 
+			"ice cream":{abundance: 1,consumption : [5100], last_trip : 0}}
 
 // foods : {"milk":{abundance : 0, consumption : [], last_trip : timestamp(0 initially) },
 //			"eggs":{abundance: 1, consumption : [], last_trip : timestamp}}
