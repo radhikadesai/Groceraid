@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
-GLOBAL.foods={"milk":{abundance : 0,consumption : [], last_trip : 0},
-			"chocolate":{abundance: 1,consumption : [], last_trip : 0},
-			 "strawberries":{abundance: 1,consumption : [], last_trip : 0}, 
-			"ice cream":{abundance: 1,consumption : [], last_trip : 0}}
+var milk = Date.now();
+var eggs = Date.now() - 360000;
+GLOBAL.foods={"milk":{abundance : 0,consumption : [420000, 420000, 420000], last_trip : milk},
+			"eggs":{abundance : 0,consumption : [420000], last_trip : eggs},
+			"chocolate":{abundance: 1,consumption : [420000, 420000, 420000], last_trip : milk},
+			 "strawberry":{abundance: 1,consumption : [420000], last_trip : milk}}
 
 // foods : {"milk":{abundance : 0, consumption : [], last_trip : timestamp(0 initially) },
 //			"eggs":{abundance: 1, consumption : [], last_trip : timestamp}}
@@ -11,20 +13,21 @@ GLOBAL.foods={"milk":{abundance : 0,consumption : [], last_trip : 0},
 // {"user_input":"Hello Mr. Fridge today you have milk eggs and cheese","list_of_foods":["milk","eggs","cheese"]}
 // TODO : Add a number to the food type, eg. 4 eggs, 2 milk
 createFoods = function(user_input,list_of_foods){
+	console.log("List of foods : ",list_of_foods);
 	if(user_input.includes("low on")){
 		if(foods!=undefined){
-			req.body.list_of_foods.forEach(function(food){
+			list_of_foods.forEach(function(food){
 				foods[food].abundance = 0;
 			});	
 		}
 	}
 	else{
 		list_of_foods.forEach(function(food){
-			if(foods[food]){
+			if(foods[food]!= undefined){
 				foods[food].abundance = foods[food].abundance + 1;
 			}
 			else{
-				foods[food] = {abundance : 1,consumption : [], last_trip : 0}
+				foods[food] = {abundance : 1,consumption : [], last_trip : Date.now()}
 			}
 			var now = Date.now();
 			if(foods[food].last_trip!==0){
@@ -37,6 +40,7 @@ createFoods = function(user_input,list_of_foods){
 router.post('/', function(req, res, next) {
 	var spawn = require("child_process").spawn;
 	var test=req.body;
+	console.log("kevin's input : ",test);
 	var process = spawn('python',["python/process_speech.py", JSON.stringify(test)]);
 	process.stdout.on('data', function (data){
 		var x = JSON.parse(data);
@@ -48,6 +52,7 @@ router.post('/', function(req, res, next) {
 router.get('/time_to_next_trip',function(req, res, next){
 	var total=0;
 	var min =0;
+	var now = Date.now();
 	// Set the min as the first non-empty consumption in the fridge   
    	for(var food in foods){
    		if(foods[food].consumption.length>0){
@@ -57,7 +62,8 @@ router.get('/time_to_next_trip',function(req, res, next){
 			    total=total+foods[food].consumption[i];
 			    i++;
 			}
-   			min= total/(foods[food].consumption.length);
+   			var avg=total/(foods[food].consumption.length);
+			min = (foods[food].last_trip + avg) - now;
    			break;
    		}
    	}
@@ -73,8 +79,11 @@ router.get('/time_to_next_trip',function(req, res, next){
 		if(foods[food].consumption.length>0)
 		{ 
 			var avg=total/(foods[food].consumption.length);
-		    min=Math.min(min,avg);
+			min=Math.min(min,((foods[food].last_trip + avg) - now));
 		}
+	}
+	if(min<0){
+		min=0;
 	}
 	res.send({"time_to_trip": min/1000});
 });

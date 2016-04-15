@@ -108,7 +108,7 @@ app.controller("myCtrl", function($scope, $http, $timeout) {
 
     $http({
         method : "GET",
-        url : "http://localhost:3000/testStoresData"
+        url : "http://localhost:3000/sandbox/location"
     }).then(function mySucces(response) {
         $scope.stores = response.data;
         //$scope.storeDataArr = $scope.myWelcome.result;

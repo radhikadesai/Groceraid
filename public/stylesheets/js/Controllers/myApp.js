@@ -27,7 +27,7 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
         method : "GET",
         url : "http://localhost:3000/food/time_to_next_trip"
     }).then(function mySucces(response) {
-        $scope.counter = response.data.time_to_trip;
+        $scope.counter = Math.floor(response.data.time_to_trip);
         console.log("$scope.myWelcome: ",$scope.myWelcome);
         console.log("TimeResponseData: ", response.data);
         console.log("$scope.counter: ",$scope.counter);
@@ -115,6 +115,7 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
         }
 
         $scope.Math = Math;
+        console.log("Date.now() test: ", Date.now());
         $scope.timeFunction = function($scope, $timeout){
           //Counter needs to actually be initialized with the min value of the foods list's time
           //until something is predicted to run out
@@ -148,6 +149,7 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
 	//$scope.counter = 15;
 	//$scope.timeUntil = Date.now() - $scope.counter;
 	$scope.onTimeout = function(){
+    //$scope.counter = Math.floor($scope.counter);
     if($scope.counter > 0)
     {
       $scope.counter--;

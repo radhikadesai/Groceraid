@@ -38,16 +38,15 @@ router.get('/location',function(req,res,next)
 	geolocate(function(latLong)
 	{   latitude=latLong[0];
         longitude=latLong[1];
-         var spawn = require("child_process").spawn;
-	var jsonObj =  {'user_input':{'lat':latitude,'long':longitude}};
-	var process = spawn('python',["python/maps.py", JSON.stringify(jsonObj)]);
-	process.stdout.on('data', function (data){
+        console.log("Latitude : ", latitude);
+        var spawn = require("child_process").spawn;
+		var jsonObj =  {'user_input':{'lat':latitude,'long':longitude}};
+		var process = spawn('python',["python/maps.py", JSON.stringify(jsonObj)]);
+		process.stdout.on('data', function (data){
 		var x = JSON.parse(data);
 		res.send(JSON.stringify(x));
 	});
     });
-   
-	
 });
 router.get('/maps', function(req, res, next) {
 	var spawn = require("child_process").spawn;
