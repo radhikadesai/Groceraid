@@ -115,6 +115,7 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
         }
 
         $scope.Math = Math;
+        console.log("Date.now() test: ", Date.now());
         $scope.timeFunction = function($scope, $timeout){
           //Counter needs to actually be initialized with the min value of the foods list's time
           //until something is predicted to run out

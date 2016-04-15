@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
-GLOBAL.foods={"milk":{abundance : 0,consumption : [10000], last_trip : 0},
-			"chocolate":{abundance: 1,consumption : [10000], last_trip : 0},
-			 "strawberries":{abundance: 1,consumption : [10000], last_trip : 0}, 
-			"ice cream":{abundance: 1,consumption : [5100], last_trip : 0}}
+var milk = Date.now();
+var eggs = Date.now() - 360000;
+GLOBAL.foods={"milk":{abundance : 0,consumption : [420000, 420000, 420000], last_trip : milk},
+			"eggs":{abundance : 0,consumption : [840000], last_trip : eggs},
+			"chocolate":{abundance: 1,consumption : [420000, 420000, 420000], last_trip : milk},
+			 "strawberries":{abundance: 1,consumption : [1260000], last_trip : milk}}
 
 // foods : {"milk":{abundance : 0, consumption : [], last_trip : timestamp(0 initially) },
 //			"eggs":{abundance: 1, consumption : [], last_trip : timestamp}}

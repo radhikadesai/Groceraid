@@ -227,9 +227,9 @@
             <tbody>
                 <tr ng-repeat="stores in stores.result">
                     <td>{{ stores.name }}</td>
-                    <td>{{ (value.seconds / 60) | number:2 | number }} minutes</td>
-                    <td>{{ (value.meters /1000) | number:2 | number }} kilometers</td>
-                    <td>{{ value.address }}</td>
+                    <td>{{ (stores.seconds / 60) | number:2 | number }} minutes</td>
+                    <td>{{ (stores.meters /1000) | number:2 | number }} kilometers</td>
+                    <td>{{ stores.address }}</td>
                 </tr>
             </tbody>
         </table>
