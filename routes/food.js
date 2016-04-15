@@ -115,7 +115,7 @@ router.post('/add_food',function(req, res, next){
 		foods[food_name].abundance = foods[food_name].abundance + 1;
 	}
 	else{
-		foods[food_name] = {abundance : 1}
+		foods[food_name] = {abundance : 1,consumption : [], last_trip : 0}
 	}
  	res.send(foods);
  	console.log(foods);
