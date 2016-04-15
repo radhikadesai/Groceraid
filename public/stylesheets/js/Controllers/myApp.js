@@ -119,7 +119,11 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
           //Counter needs to actually be initialized with the min value of the foods list's time
           //until something is predicted to run out
           $scope.onTimeout = function($scope, $timeout){
-            $scope.counter--;
+            if($scope.counter > 0)
+            {
+              $scope.counter--;
+            }
+            
             console.log(this.count);
             if($scope.counter > 0){
               mytimeout = $timeout($scope.onTimeout,1000);
@@ -144,7 +148,10 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
 	//$scope.counter = 15;
 	//$scope.timeUntil = Date.now() - $scope.counter;
 	$scope.onTimeout = function(){
-		$scope.counter--;
+    if($scope.counter > 0)
+    {
+      $scope.counter--;
+    }
 
 		//console.log(this.count);
 		//console.log("CounterValue: ", $scope.counter);
