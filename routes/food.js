@@ -12,6 +12,21 @@ GLOBAL.foods={"milk":{abundance : 0,consumption : [420000, 420000, 420000], last
 
 // {"user_input":"Hello Mr. Fridge today you have milk eggs and cheese","list_of_foods":["milk","eggs","cheese"]}
 // TODO : Add a number to the food type, eg. 4 eggs, 2 milk
+var addFood =function(food){
+	var now = Date.now();
+			if(foods[food]!= undefined){
+				foods[food].abundance = foods[food].abundance + 1;
+			}
+			else{
+				foods[food] = {abundance : 1,consumption : [], last_trip : now}
+			}
+			
+			if(foods[food].last_trip!==now){
+				foods[food].consumption.push(now-foods[food].last_trip);
+			}
+			foods[food].last_trip = now;
+}
+
 createFoods = function(user_input,list_of_foods){
 	console.log("List of foods : ",list_of_foods);
 	if(user_input.includes("low on")){
@@ -23,17 +38,7 @@ createFoods = function(user_input,list_of_foods){
 	}
 	else{
 		list_of_foods.forEach(function(food){
-			if(foods[food]!= undefined){
-				foods[food].abundance = foods[food].abundance + 1;
-			}
-			else{
-				foods[food] = {abundance : 1,consumption : [], last_trip : Date.now()}
-			}
-			var now = Date.now();
-			if(foods[food].last_trip!==0){
-				foods[food].consumption.push(now-foods[food].last_trip);
-			}
-			foods[food].last_trip = now;
+			addFood(food);
 		});
 	}
 }
@@ -120,12 +125,13 @@ router.post('/inc_abundance',function(req, res, next){
 router.post('/add_food',function(req, res, next){
 	console.log(req.body.food);
  	var food_name = req.body.food
- 	if(foods[food_name]){
-		foods[food_name].abundance = foods[food_name].abundance + 1;
-	}
-	else{
-		foods[food_name] = {abundance : 1,consumption : [], last_trip : 0}
-	}
+ // 	if(foods[food_name]){
+	// 	foods[food_name].abundance = foods[food_name].abundance + 1;
+	// }
+	// else{
+	// 	foods[food_name] = {abundance : 1,consumption : [], last_trip : 0}
+	// }
+	addFood(food_name);
  	res.send(foods);
  	console.log(foods);
 
