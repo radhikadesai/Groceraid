@@ -58,6 +58,7 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
           }).then(function mySucces(response) {
                 $scope.myWelcome = response.data;
                 $scope.numFoods += 1;
+                $scope.updateTime();
              }, function myError(response) {
              
               console.log("error: ",response);
@@ -75,6 +76,7 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
           }).then(function mySucces(response) {
                 $scope.myWelcome = response.data;
                 $scope.numFoods -=1;
+                $scope.updateTime();
              }, function myError(response) {
              
               console.log("error: ",response);
@@ -97,6 +99,20 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
 
         }
 
+        $scope.updateTime = function(){
+         
+          $http({
+                  method : "GET",
+                  url : "http://localhost:3000/food/time_to_next_trip"
+              }).then(function mySucces(response) {
+                  $scope.counter = Math.floor(response.data.time_to_trip);
+                  console.log("AddfoodTest: ", $scope.counter);
+                }, function myError(response) {
+                  $scope.myWelcome = response.statusText;
+                   console.log("error: ",response);
+              });
+        }
+
         $scope.addFood = function(){
             console.log($scope.foodName);
              $http({
@@ -107,6 +123,7 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
              }).then(function mySucces(response) {
                 $scope.myWelcome = response.data;
                 $scope.numFoods += 1;
+                $scope.updateTime();
              }, function myError(response) {
              
               console.log("error: ",response);
@@ -173,6 +190,10 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
         mytimeout = $timeout($scope.onTimeout,1000);
     }
 });
+
+// $scope.updateTime = function(){
+ 
+// }
 
 
 app.filter('secondsToDateTime', [function(){
