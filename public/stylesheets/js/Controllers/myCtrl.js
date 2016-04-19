@@ -1,3 +1,4 @@
+var ip = window.location.href;
 app.controller("myCtrl", function($scope, $http, $timeout) {
   
   /*
@@ -95,7 +96,7 @@ app.controller("myCtrl", function($scope, $http, $timeout) {
 
     $http({
         method : "GET",
-        url : "http://localhost:3000/sandbox/suggest"
+        url : ip + "sandbox/suggest"
     }).then(function mySucces(response) {
         $scope.suggestions = response.data.result.suggestions;
         $scope.recipes = response.data.result.recipes;
@@ -108,7 +109,7 @@ app.controller("myCtrl", function($scope, $http, $timeout) {
 
     $http({
         method : "GET",
-        url : "http://localhost:3000/sandbox/location"
+        url : ip + "sandbox/location"
     }).then(function mySucces(response) {
         $scope.stores = response.data;
         //$scope.storeDataArr = $scope.myWelcome.result;

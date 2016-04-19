@@ -1,3 +1,4 @@
+var ip = window.location.href;
 var app = angular.module("myApp", []);
 
 app.controller("timeCtrl", function($scope, $http, $timeout){
@@ -7,7 +8,7 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
   
 	$http({
         method : "GET",
-        url : "http://localhost:3000/food"
+        url : ip + "food"
     }).then(function mySucces(response) {
         $scope.myWelcome = response.data;
         console.log("$scope.myWelcome: ",$scope.myWelcome);
@@ -25,7 +26,7 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
 
 	$http({
         method : "GET",
-        url : "http://localhost:3000/food/time_to_next_trip"
+        url : ip + "food/time_to_next_trip"
     }).then(function mySucces(response) {
         $scope.counter = Math.floor(response.data.time_to_trip);
         console.log("$scope.myWelcome: ",$scope.myWelcome);
@@ -52,7 +53,7 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
           // console.log($scope.myWelcome.size);
           $http({
             method : "POST",
-            url : "http://localhost:3000/food/inc_abundance",
+            url : ip + "food/inc_abundance",
             data : { food: key}
 
           }).then(function mySucces(response) {
@@ -70,7 +71,7 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
           //$scope.myWelcome[key].abundance-=1;
           $http({
             method : "POST",
-            url : "http://localhost:3000/food/dec_abundance",
+            url : ip + "food/dec_abundance",
             data : { food: key}
 
           }).then(function mySucces(response) {
@@ -103,7 +104,7 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
          
           $http({
                   method : "GET",
-                  url : "http://localhost:3000/food/time_to_next_trip"
+                  url : ip + "food/time_to_next_trip"
               }).then(function mySucces(response) {
                   $scope.counter = Math.floor(response.data.time_to_trip);
                   console.log("AddfoodTest: ", $scope.counter);
@@ -117,7 +118,7 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
             console.log($scope.foodName);
              $http({
                 method : "POST",
-                url : "http://localhost:3000/food/add_food",
+                url : ip + "food/add_food",
                 data : { food: $scope.foodName}
 
              }).then(function mySucces(response) {
