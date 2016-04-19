@@ -109,6 +109,7 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
                   url : ip + "food/time_to_next_trip"
               }).then(function mySucces(response) {
                   $scope.counter = Math.floor(response.data.time_to_trip);
+                  $scope.reset;
                   console.log("AddfoodTest: ", $scope.counter);
                 }, function myError(response) {
                   $scope.myWelcome = response.statusText;
@@ -189,7 +190,7 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
 	var mytimeout = $timeout($scope.onTimeout,1000);
     
     $scope.reset= function(){
-        $scope.counter = 5;
+        //$scope.counter = 5;
         mytimeout = $timeout($scope.onTimeout,1000);
     }
 });

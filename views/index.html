@@ -133,7 +133,7 @@
                     {{ Math.floor(counter/3600) }} Hours, {{ Math.floor(counter/60) - 60*(Math.floor(counter/3600)) }} Minutes, {{ counter - (Math.floor(counter/3600) * 3600) - (60 * (Math.floor(counter/60) - 60*(Math.floor(counter/3600)))) }} Seconds
                 </div>
                 <div class="shoppingMessage" ng-if="counter === 0">
-                    <h2>Go Grocery Shopping!</h2>
+                    <h2 class="shopMessage">Go Grocery Shopping!</h2>
                 </div>
             </section>
 
