@@ -1,11 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var milk = Date.now();
-var eggs = Date.now() - 360000;
-GLOBAL.foods={"milk":{abundance : 0,consumption : [420000, 420000, 420000], last_trip : milk},
-			"eggs":{abundance : 0,consumption : [420000], last_trip : eggs},
-			"chocolate":{abundance: 1,consumption : [420000, 420000, 420000], last_trip : milk},
-			 "strawberry":{abundance: 1,consumption : [420000], last_trip : milk}}
+var eggs = Date.now() - 720000;
+GLOBAL.foods={"milk":{abundance : 1,consumption : [420000, 420000, 420000], last_trip : milk},
+			"eggs":{abundance : 1,consumption : [840000,840000], last_trip : eggs},
+			"bread":{abundance: 1,consumption : [420000, 420000, 420000], last_trip : milk}}
 
 // foods : {"milk":{abundance : 0, consumption : [], last_trip : timestamp(0 initially) },
 //			"eggs":{abundance: 1, consumption : [], last_trip : timestamp}}
@@ -60,7 +59,7 @@ router.get('/time_to_next_trip',function(req, res, next){
 	var now = Date.now();
 	// Set the min as the first non-empty consumption in the fridge   
    	for(var food in foods){
-   		if(foods[food].consumption.length>0){
+   		if(foods[food].consumption.length>0 && foods[food].abundance>0){
    			var i=0;
    			while( i < foods[food].consumption.length)
 			{
@@ -69,10 +68,12 @@ router.get('/time_to_next_trip',function(req, res, next){
 			}
    			var avg=total/(foods[food].consumption.length);
 			min = (foods[food].last_trip + avg) - now;
+			// minFood = food;
    			break;
    		}
    	}
    	// calculate the min time for all the foods in the fridge
+	var minFood;
 	for(var food in foods){
 		total =0;
 		var i=0;
@@ -81,16 +82,19 @@ router.get('/time_to_next_trip',function(req, res, next){
 		    total=total+foods[food].consumption[i];
 		    i++;
 		}
-		if(foods[food].consumption.length>0)
+		if(foods[food].consumption.length>0 && foods[food].abundance>0)
 		{ 
 			var avg=total/(foods[food].consumption.length);
 			min=Math.min(min,((foods[food].last_trip + avg) - now));
+			if(min == ((foods[food].last_trip + avg) - now)){
+				minFood = food
+			}
 		}
 	}
 	if(min<0){
 		min=0;
 	}
-	res.send({"time_to_trip": min/1000});
+	res.send({"time_to_trip": min/1000,"food" : minFood});
 });
 
 //router.post('/', function(req, res, next) {
