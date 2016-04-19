@@ -5,6 +5,7 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
 	//Counter needs to actually be initialized with the min value of the foods list's time
 	//until something is predicted to run out
   $scope.foodName = "pizza";
+  $scope.tripDate = 0;
   
 	$http({
         method : "GET",
