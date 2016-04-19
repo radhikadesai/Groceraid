@@ -99,6 +99,7 @@
                       <tr ng-show="showTable()">
                         <th>Food Name</th>
                         <th>Abundance</th>
+                        <th>Time Elapsed (hrs)</th>
                         <th>Increase Abundance</th>
                         <th>Decrease Abundance</th>
                       </tr>
@@ -107,6 +108,7 @@
                       <tr ng-repeat="(key, value) in myWelcome">
                         <td ng-show="hideLessThanZero(value.abundance)">{{ key }}</td>
                         <td ng-show="hideLessThanZero(value.abundance)">{{ value.abundance }}</td>
+                        <td ng-show="hideLessThanZero(value.abundance)">{{ (trip_date - value.last_trip) / 3600000 }}</td>
                         <td ng-show="hideLessThanZero(value.abundance)"> <button type="button" class="btn btn-primary" ng-click="plusOne(key)"> + </button> </td>
                         <td ng-show="hideLessThanZero(value.abundance)"> <button type="button" class="btn btn-primary" ng-click="minusOne(key)"> - </button> </td>
                         <!--<td><a class="btn btn-primary" ng-click="vm.remove()"> -->
