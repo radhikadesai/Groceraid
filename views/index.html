@@ -108,7 +108,7 @@
                       <tr ng-repeat="(key, value) in myWelcome">
                         <td ng-show="hideLessThanZero(value.abundance)">{{ key }}</td>
                         <td ng-show="hideLessThanZero(value.abundance)">{{ value.abundance }}</td>
-                        <td ng-show="hideLessThanZero(value.abundance)">{{ (tripDate - value.last_trip) / 3600000 }}</td>
+                        <td ng-show="hideLessThanZero(value.abundance)">{{ ((tripDate - value.last_trip) / 3600000) | number:2 | number }}</td>
                         <td ng-show="hideLessThanZero(value.abundance)"> <button type="button" class="btn btn-primary" ng-click="plusOne(key)"> + </button> </td>
                         <td ng-show="hideLessThanZero(value.abundance)"> <button type="button" class="btn btn-primary" ng-click="minusOne(key)"> - </button> </td>
                         <!--<td><a class="btn btn-primary" ng-click="vm.remove()"> -->
