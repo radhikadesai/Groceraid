@@ -111,6 +111,34 @@ router.get('/', function(req, res, next) {
 	}
 	res.send(foodsToSend);
 });
+// Gets all the foods in the fridge whose abundance is > 0 sorted by frequency
+router.get('/foods_to_buy', function(req, res, next) {
+	// var foodsToSend={};
+	// for(var food in foods){
+	// 	if(foods[food].abundance===0){
+	// 		foodsToSend[food]=foods[food];
+	// 	}
+	// }
+	// res.send(foodsToSend);
+	var foodArray = [];
+	for(var food in foods){
+		if(foods[food].abundance===0){
+			var length= foods[food].consumption.length;
+			foodArray.push({food:food,frequency:length});
+		}
+	}
+	foodArray.sort(function (a, b) {
+	  if (a.frequency > b.frequency) {
+	    return -1;
+	  }
+	  if (a.frequency < b.frequency) {
+	    return 1;
+	  }
+	  // a must be equal to b
+	  return 0;
+	});
+	res.send(foodArray);
+});
 
 router.post('/dec_abundance',function(req, res, next){
  	var food_name = req.body.food
