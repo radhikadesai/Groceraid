@@ -14,7 +14,7 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
         $scope.myWelcome = response.data;
         console.log("$scope.myWelcome: ",$scope.myWelcome);
         $scope.tripDate = Date.now();
-        console.log("tripDate: ", tripDate);
+        console.log("tripDate: ", $scope.tripDate);
         $scope.counter = 3600;
         $scope.numFoods = 0;
         for(var food in $scope.myWelcome){
