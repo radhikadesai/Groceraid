@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var milk = Date.now();
-var eggs = Date.now() - 720000;
+var eggs = Date.now() - 920000;
 GLOBAL.foods={"milk":{abundance : 1,consumption : [420000, 420000, 420000], last_trip : milk},
 			"eggs":{abundance : 1,consumption : [840000,840000], last_trip : eggs},
 			"bread":{abundance: 1,consumption : [420000, 420000, 420000], last_trip : milk}}
