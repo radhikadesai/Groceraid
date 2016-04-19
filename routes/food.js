@@ -117,7 +117,7 @@ router.post('/dec_abundance',function(req, res, next){
 
 router.post('/inc_abundance',function(req, res, next){
  	var food_name = req.body.food
- 	foods[food_name].abundance += 1
+ 	addFood(food_name);
  	res.send(foods);
  	console.log(foods);
 });
@@ -125,12 +125,6 @@ router.post('/inc_abundance',function(req, res, next){
 router.post('/add_food',function(req, res, next){
 	console.log(req.body.food);
  	var food_name = req.body.food
- // 	if(foods[food_name]){
-	// 	foods[food_name].abundance = foods[food_name].abundance + 1;
-	// }
-	// else{
-	// 	foods[food_name] = {abundance : 1,consumption : [], last_trip : 0}
-	// }
 	addFood(food_name);
  	res.send(foods);
  	console.log(foods);
