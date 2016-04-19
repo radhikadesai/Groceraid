@@ -76,6 +76,8 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
 
           }).then(function mySucces(response) {
                 $scope.myWelcome = response.data;
+                if($scope.myWelcome[key].abundance == 0)
+                  $scope.counter = 0;
                 $scope.numFoods -=1;
                 $scope.updateTime();
              }, function myError(response) {
