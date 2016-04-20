@@ -119,6 +119,54 @@ app.controller("myCtrl", function($scope, $http, $timeout) {
          console.log("error: ",response);
     });
 
+        $http({
+        method : "GET",
+        url : ip + "food/foods_to_buy"
+    }).then(function mySucces(response) {
+        $scope.foodsToGet = response.data;
+        console.log("$scope.foodsToGet: ",$scope.foodsToGet);
+        // $scope.numFoods = 0;
+        // for(var food in $scope.myWelcome){
+        //   $scope.numFoods += $scope.myWelcome[food].abundance;
+        // }
+
+
+    }, function myError(response) {
+        $scope.foodsToGet = response.statusText;
+         console.log("error: ",response);
+    });
+
+    $scope.minusShoppingListItem = function(key){
+          //$scope.myWelcome[key].abundance-=1;
+          $http({
+            method : "POST",
+            url : ip + "food/remove_from_shopping_list",
+            data : { food: key}
+
+          }).then(function mySucces(response) {
+                $scope.foodList = response.data;
+                
+             }, function myError(response) {
+             
+              console.log("error: ",response);
+             });
+         };
+
+         $scope.addToShoppingList = function(key){
+          //$scope.myWelcome[key].abundance-=1;
+          $http({
+            method : "POST",
+            url : ip + "food/add_to_shopping_list",
+            data : { food: key}
+
+          }).then(function mySucces(response) {
+                $scope.foodItem = response.data;
+             }, function myError(response) {
+             
+              console.log("error: ",response);
+             });
+         };
+
 
 
 	$scope.firstName	= "John";

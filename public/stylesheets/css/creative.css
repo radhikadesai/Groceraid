@@ -546,3 +546,21 @@ body {
     background-color: white;
     color: black;
 }
+
+.tableOfTables
+{
+    margin: 0 auto !important;
+    float: none !important;
+}
+
+#foodItem
+{
+    font-weight: normal !important;
+}
+
+.timeDriver
+{
+    margin: 0 auto !important;
+    float: none !important;
+    text-align: center !important;
+}

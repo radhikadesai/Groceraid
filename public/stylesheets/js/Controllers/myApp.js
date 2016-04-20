@@ -31,6 +31,7 @@ app.controller("timeCtrl", function($scope, $http, $timeout){
         url : ip + "food/time_to_next_trip"
     }).then(function mySucces(response) {
         $scope.counter = Math.floor(response.data.time_to_trip);
+        $scope.driver = response.data.food;
         console.log("$scope.myWelcome: ",$scope.myWelcome);
         console.log("TimeResponseData: ", response.data);
         console.log("$scope.counter: ",$scope.counter);
