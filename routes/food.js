@@ -11,13 +11,13 @@ GLOBAL.foods={"milk":{abundance : 1,consumption : [420000, 420000, 420000], last
 
 // {"user_input":"Hello Mr. Fridge today you have milk eggs and cheese","list_of_foods":["milk","eggs","cheese"]}
 // TODO : Add a number to the food type, eg. 4 eggs, 2 milk
-var addFood =function(food){
+var addFood =function(food,abundance){
 	var now = Date.now();
 			if(foods[food]!= undefined){
 				foods[food].abundance = foods[food].abundance + 1;
 			}
 			else{
-				foods[food] = {abundance : 1,consumption : [], last_trip : now}
+				foods[food] = {abundance : abundance,consumption : [], last_trip : now}
 			}
 			
 			if(foods[food].last_trip!==now){
@@ -37,9 +37,30 @@ createFoods = function(user_input,list_of_foods){
 	}
 	else{
 		list_of_foods.forEach(function(food){
-			addFood(food);
+			addFood(food,1);
 		});
 	}
+}
+
+var foodsToBuy = function(){
+	var foodArray = [];
+	for(var food in foods){
+		if(foods[food].abundance===0){
+			var length= foods[food].consumption.length;
+			foodArray.push({food:food,frequency:length});
+		}
+	}
+	foodArray.sort(function (a, b) {
+	  if (a.frequency > b.frequency) {
+	    return -1;
+	  }
+	  if (a.frequency < b.frequency) {
+	    return 1;
+	  }
+	  // a must be equal to b
+	  return 0;
+	});
+	return foodArray;
 }
 router.post('/', function(req, res, next) {
 	var spawn = require("child_process").spawn;
@@ -111,32 +132,26 @@ router.get('/', function(req, res, next) {
 	}
 	res.send(foodsToSend);
 });
+
 // Gets all the foods in the fridge whose abundance is > 0 sorted by frequency
 router.get('/foods_to_buy', function(req, res, next) {
-	// var foodsToSend={};
-	// for(var food in foods){
-	// 	if(foods[food].abundance===0){
-	// 		foodsToSend[food]=foods[food];
-	// 	}
-	// }
-	// res.send(foodsToSend);
-	var foodArray = [];
-	for(var food in foods){
-		if(foods[food].abundance===0){
-			var length= foods[food].consumption.length;
-			foodArray.push({food:food,frequency:length});
-		}
-	}
-	foodArray.sort(function (a, b) {
-	  if (a.frequency > b.frequency) {
-	    return -1;
-	  }
-	  if (a.frequency < b.frequency) {
-	    return 1;
-	  }
-	  // a must be equal to b
-	  return 0;
-	});
+	var foodArray = foodsToBuy();
+	res.send(foodArray);
+});
+
+router.delete('/remove_from_shopping_list', function(req, res, next) {
+	// data : { food: key}
+	var food_name = req.body.food
+	delete foods[food_name];
+	var foodArray = foodsToBuy();
+	res.send(foodArray);
+});
+
+router.post('/add_to_shopping_list',function(req, res, next){
+	//data : { food: key}
+	var food_name = req.body.food
+	addFood(food_name,0);
+	var foodArray = foodsToBuy();
 	res.send(foodArray);
 });
 
@@ -149,7 +164,7 @@ router.post('/dec_abundance',function(req, res, next){
 
 router.post('/inc_abundance',function(req, res, next){
  	var food_name = req.body.food
- 	addFood(food_name);
+ 	addFood(food_name,1);
  	res.send(foods);
  	console.log(foods);
 });
@@ -157,7 +172,7 @@ router.post('/inc_abundance',function(req, res, next){
 router.post('/add_food',function(req, res, next){
 	console.log(req.body.food);
  	var food_name = req.body.food
-	addFood(food_name);
+	addFood(food_name,1);
  	res.send(foods);
  	console.log(foods);
 
