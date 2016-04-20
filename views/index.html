@@ -151,6 +151,39 @@
                 </div>
             </section> -->
 
+    <section id="shopping_list">
+        <div id="i_suggest">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Shopping List</h2>
+                    <hr class="star-primary">
+                </div>
+            </div>
+            <table class="center-table table-hover">
+                <thead>
+                    <tr>
+                        <th>Foods</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="food in foodsToGet">
+                        <td id="foodItem">{{food.food}}</td>
+                        <td> <button type="button" class="btn btn-primary" ng-click="minusShoppingListItem(food)"> - </button> </td>
+                    </tr>
+                </tbody>
+            </table>
+            <form class="form-inline">
+                    <div class="col-sm-12 text-center">
+                        <div class="form-group">
+                            <br>
+                            <input ng-model="foodName" type="name" class="form-control" id="Food Name" placeholder="Add A Food">
+                        </div>
+                            <button ng-click="addToShoppingList()" type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+            </form>
+        </div>
+    </section>
 
     <!-- recipes Section -->
     <section id="recipes">
@@ -179,39 +212,6 @@
     <!-- Suggestions Section -->
     <section id="suggest">
         <table class="tableOfTables">
-            <th>
-        <div id="i_suggest">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>Shopping List</h2>
-                    <hr class="star-primary">
-                </div>
-            </div>
-            <table class="center-table table-hover">
-                <thead>
-                    <tr>
-                        <th>Foods</th>
-                        <th>Remove</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="food in foodsToGet">
-                        <td id="foodItem">{{food.food}}</td>
-                        <td> <button type="button" class="btn btn-primary" ng-click="minusShoppingListItem(food)"> - </button> </td>
-                    </tr>
-                </tbody>
-            </table>
-            <form class="form-inline">
-                    <div class="col-sm-12 text-center">
-                        <div class="form-group">
-                            <label for="Food Name">Add A Food</label>
-                            <input ng-model="foodName" type="name" class="form-control" id="Food Name" placeholder="Food Name">
-                        </div>
-                            <button ng-click="addToShoppingList()" type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-            </form>
-        </div>
-    </th>
             <th>
         <div id="i_suggest">
             <div class="row">
