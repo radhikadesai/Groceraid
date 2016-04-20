@@ -547,6 +547,11 @@ body {
     color: black;
 }
 
+#shopping_list
+{
+    background: url(../img/Meal.jpg) no-repeat bottom center scroll;
+}
+
 .tableOfTables
 {
     margin: 0 auto !important;
