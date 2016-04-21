@@ -4,7 +4,9 @@ var milk = Date.now();
 var eggs = Date.now() - 920000;
 GLOBAL.foods={"milk":{abundance : 1,consumption : [420000, 420000, 420000], last_trip : milk},
 			"eggs":{abundance : 1,consumption : [840000,840000], last_trip : eggs},
-			"bread":{abundance: 1,consumption : [420000, 420000, 420000], last_trip : milk}}
+			"bread":{abundance: 1,consumption : [420000, 420000, 420000], last_trip : milk},
+		    "cheese":{abundance: 0,consumption : [420000, 420000], last_trip : eggs},
+		    "strawberries":{abundance: 0,consumption : [840000, 420000], last_trip : eggs}}
 
 // foods : {"milk":{abundance : 0, consumption : [], last_trip : timestamp(0 initially) },
 //			"eggs":{abundance: 1, consumption : [], last_trip : timestamp}}

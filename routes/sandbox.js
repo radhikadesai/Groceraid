@@ -22,6 +22,7 @@ router.get('/suggest', function(req, res, next) {
 	var spawn = require("child_process").spawn;
 	var foodsInFridge =[];
 	for (var food in foods){
+		if(foods[food].abundance>0)
 		foodsInFridge.push(food);
 	}
 	var jsonObj =  {'user_input':foodsInFridge}; 
