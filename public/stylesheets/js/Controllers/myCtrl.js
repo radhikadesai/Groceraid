@@ -151,13 +151,14 @@ app.controller("myCtrl", function($scope, $http, $timeout) {
               console.log("error: ",response);
              });
          };
-
+         $scope.shoppingFoodName = "";
          $scope.addToShoppingList = function(key){
+         
           //$scope.myWelcome[key].abundance-=1;
           $http({
             method : "POST",
             url : ip + "food/add_to_shopping_list",
-            data : { food: key}
+            data : { food: $scope.shoppingFoodName}
 
           }).then(function mySucces(response) {
                 $scope.foodItem = response.data;
